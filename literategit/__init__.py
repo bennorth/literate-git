@@ -1,5 +1,19 @@
+import os
 import pygit2 as git
 from collections import namedtuple
+import jinja2
+
+
+_templates = None
+def templates():
+    global _templates
+    if _templates is None:
+        loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
+        env = jinja2.Environment(loader=loader)
+        _templates = {}
+    return _templates
+
+
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
