@@ -15,7 +15,10 @@ def _commit(repo, oid, required_n_parents=None, tag=None):
 
 
 class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
-    pass
+    @classmethod
+    def from_commit(cls, repo, oid):
+        commit = _commit(repo, oid, 1, 'leaf-commit')
+        return cls(repo, commit)
 
 
 class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
