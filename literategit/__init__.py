@@ -10,11 +10,14 @@ def templates():
     if _templates is None:
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
+        env.filters['as_html_fragment'] = as_html_fragment
         _templates = {'node': env.get_template('node.html.tmpl'),
                       'page': env.get_template('page.html.tmpl')}
     return _templates
 
 
+def as_html_fragment(x):
+    return x.as_html_fragment()
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
