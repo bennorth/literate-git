@@ -33,3 +33,15 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
             ch = repo[ch].parent_ids[0]
         children.reverse()
         return cls(repo, commit, children)
+
+
+def leaf_or_section(repo, oid):
+    commit = _commit(repo, oid)
+    n_parents = len(commit.parent_ids)
+    if n_parents == 1:
+        return LeafCommit.from_commit(repo, oid)
+    elif n_parents == 2:
+        return SectionCommit.from_commit(repo, oid)
+    else:
+        raise ValueError('cannot handle {} parents of {}'
+                         .format(n_parents, oid))
