@@ -22,4 +22,14 @@ class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
 
 
 class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
-    pass
+    @classmethod
+    def from_commit(cls, repo, oid):
+        commit = _commit(repo, oid, 2, 'section-commit')
+        prev_node = commit.parent_ids[0]
+        ch = commit.parent_ids[1]
+        children = []
+        while ch != prev_node:
+            children.append(leaf_or_section(repo, ch))
+            ch = repo[ch].parent_ids[0]
+        children.reverse()
+        return cls(repo, commit, children)
