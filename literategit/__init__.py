@@ -102,3 +102,7 @@ def list_from_range(repo, base_branch_name, branch_name):
         oid = element.commit.parent_ids[0]
     elements.reverse()
     return elements
+
+
+def render(nodes):
+    return templates()['page'].render(nodes=nodes)
