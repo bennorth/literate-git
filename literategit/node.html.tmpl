@@ -1,0 +1,7 @@
+<h2>{{ node.title }}</h2>
+
+<p>{{ node.message_body | e }}</p>
+
+<div class="diff">{{ node.diff | as_html_fragment }}</div>
+
+{% for ch in node.children %}{{ ch | as_html_fragment }}{% endfor %}
