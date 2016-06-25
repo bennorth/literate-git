@@ -50,14 +50,14 @@ class Node:
         return Diff()  # TODO
 
 
-class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
+class LeafCommit(namedtuple('LeafCommit', 'repo commit'), Node):
     @classmethod
     def from_commit(cls, repo, oid):
         commit = _commit(repo, oid, 1, 'leaf-commit')
         return cls(repo, commit)
 
 
-class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
+class SectionCommit(namedtuple('SectionCommit', 'repo commit children'), Node):
     @classmethod
     def from_branch(cls, repo, branch_name):
         return cls.from_commit(repo, repo.lookup_branch(branch_name).target)
