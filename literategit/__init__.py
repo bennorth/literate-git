@@ -1,4 +1,5 @@
 import pygit2 as git
+from collections import namedtuple
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
@@ -11,3 +12,11 @@ def _commit(repo, oid, required_n_parents=None, tag=None):
         raise ValueError('commit {} has {} parent/s so is not a {}'
                          .format(oid, n_parents, tag))
     return commit
+
+
+class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
+    pass
+
+
+class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
+    pass
