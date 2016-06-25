@@ -1,0 +1,14 @@
+<div class="diff">
+  {% for patch in diff %}
+  <div class="patch">
+  <h4>{{ patch.delta.old_file.path }} : {{ patch.delta.new_file.path }}</h4>
+  {% for hunk in patch.hunks %}
+  <pre>
+  {% for line in hunk.lines %}
+  {{ line.old_lineno }} : {{ line.new_lineno }} : {{ line.content.rstrip() | e -}}
+  {% endfor %}
+  </pre>
+  {% endfor %}
+  </div>
+  {% endfor %}
+</div>

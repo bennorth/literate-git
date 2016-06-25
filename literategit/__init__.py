@@ -13,6 +13,7 @@ def templates():
         env.filters['as_html_fragment'] = as_html_fragment
         _templates = {'node': env.get_template('node.html.tmpl'),
                       'content': env.get_template('content.html.tmpl'),
+                      'diff': env.get_template('diff.html.tmpl'),
                       'page': env.get_template('page.html.tmpl')}
     return _templates
 
@@ -48,7 +49,7 @@ class Node:
 
     @property
     def diff(self):
-        return Diff()  # TODO
+        return Diff(self.repo, self.commit.tree.oid, self.commit.parents[0].tree.oid)
 
 
 class LeafCommit(namedtuple('LeafCommit', 'repo commit'), Node):
@@ -76,9 +77,10 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children'), Node):
         return cls(repo, commit, children)
 
 
-class Diff(namedtuple('Diff', [])):
+class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
     def as_html_fragment(self):
-        return '--this-will-be-the-diff--'
+        diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
+        return templates()['diff'].render(diff=diff)
 
 
 def leaf_or_section(repo, oid):
