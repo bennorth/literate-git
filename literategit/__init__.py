@@ -71,6 +71,11 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
         return cls(repo, commit, children)
 
 
+class Diff(namedtuple('Diff', [])):
+    def as_html_fragment(self):
+        return '--this-will-be-the-diff--'
+
+
 def leaf_or_section(repo, oid):
     commit = _commit(repo, oid)
     n_parents = len(commit.parent_ids)
