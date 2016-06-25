@@ -23,6 +23,10 @@ class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
 
 class SectionCommit(namedtuple('SectionCommit', 'repo commit children')):
     @classmethod
+    def from_branch(cls, repo, branch_name):
+        return cls.from_commit(repo, repo.lookup_branch(branch_name).target)
+
+    @classmethod
     def from_commit(cls, repo, oid):
         commit = _commit(repo, oid, 2, 'section-commit')
         prev_node = commit.parent_ids[0]
