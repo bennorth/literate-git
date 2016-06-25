@@ -32,6 +32,20 @@ def _commit(repo, oid, required_n_parents=None, tag=None):
     return commit
 
 
+class Node:
+    def as_html_fragment(self):
+        # TODO: Add 'level' argument?
+        return templates()['node'].render(node=self)
+
+    @property
+    def title(self):
+        return self.commit.message.split('\n')[0]
+
+    @property
+    def message_body(self):
+        return '\n'.join(self.commit.message.split('\n')[1:])
+
+
 class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
     @classmethod
     def from_commit(cls, repo, oid):
