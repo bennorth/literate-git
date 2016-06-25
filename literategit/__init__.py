@@ -12,7 +12,8 @@ def templates():
         env = jinja2.Environment(loader=loader)
         env.filters['as_html_fragment'] = as_html_fragment
         _templates = {'node': env.get_template('node.html.tmpl'),
-                      'content': env.get_template('content.html.tmpl')}
+                      'content': env.get_template('content.html.tmpl'),
+                      'page': env.get_template('page.html.tmpl')}
     return _templates
 
 
@@ -105,4 +106,5 @@ def list_from_range(repo, base_branch_name, branch_name):
 
 
 def render(nodes):
-    return templates()['content'].render(nodes=nodes)
+    content = templates()['content'].render(nodes=nodes)
+    print(templates()['page'].render(content=content))
