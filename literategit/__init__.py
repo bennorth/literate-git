@@ -49,3 +49,15 @@ def leaf_or_section(repo, oid):
     else:
         raise ValueError('cannot handle {} parents of {}'
                          .format(n_parents, oid))
+
+
+def list_from_range(repo, base_branch_name, branch_name):
+    end_oid = repo.lookup_branch(base_branch_name).target
+    oid = repo.lookup_branch(branch_name).target
+    elements = []
+    while oid != end_oid:
+        element = leaf_or_section(repo, oid)
+        elements.append(element)
+        oid = element.commit.parent_ids[0]
+    elements.reverse()
+    return elements
