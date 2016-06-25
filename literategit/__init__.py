@@ -10,7 +10,8 @@ def templates():
     if _templates is None:
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
-        _templates = {}
+        _templates = {'node': env.get_template('node.html.tmpl'),
+                      'page': env.get_template('page.html.tmpl')}
     return _templates
 
 
