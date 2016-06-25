@@ -45,6 +45,10 @@ class Node:
     def message_body(self):
         return '\n'.join(self.commit.message.split('\n')[1:])
 
+    @property
+    def diff(self):
+        return Diff()  # TODO
+
 
 class LeafCommit(namedtuple('LeafCommit', 'repo commit')):
     @classmethod
