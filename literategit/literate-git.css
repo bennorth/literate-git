@@ -16,3 +16,7 @@ table.diff tr td pre { line-height: 100%; padding: 2px; margin: 0px; border: non
 div.literate-git-node > h2 { margin-top: 2.25em; padding-top: 8px; padding-left: 16px; margin-left: -16px; background-color: #d0d0ff; }
 div.literate-git-node > div.children > div.literate-git-node { margin-left: 4em; }
 div.literate-git-node > div.children > div.literate-git-node > h2 { font-size: 125%; background-color: #e0e0ff; }
+
+div.expand-collapse { background-color: #ccf; padding: 8px; text-align: center; }
+div.expand-collapse p { margin: 0px; }
+div.literate-git-node > div.children { display: none; }
