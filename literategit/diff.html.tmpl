@@ -3,11 +3,14 @@
   <div class="patch">
   <h4>{{ patch.delta.old_file.path }} : {{ patch.delta.new_file.path }}</h4>
   {% for hunk in patch.hunks %}
-  <pre>
+  <table class="diff">
   {% for line in hunk.lines %}
-  {{ line.old_lineno }} : {{ line.new_lineno }} : {{ line.content.rstrip() | e -}}
+  <tr class="{{ line | diff_line_classification }}">
+    <td>{{ line.old_lineno | suppress_no_lineno }}</td>
+    <td>{{ line.new_lineno | suppress_no_lineno }}</td>
+    <td><pre>{{ line.content.rstrip() | e -}}</pre></td></tr>
   {% endfor %}
-  </pre>
+  </table>
   {% endfor %}
   </div>
   {% endfor %}
