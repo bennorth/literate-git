@@ -1,0 +1,14 @@
+table.diff { width: 100% }
+table.diff tr { width: 100% }
+table.diff tr td:nth-child(1),
+table.diff tr td:nth-child(2) { width: 3em; padding-left: 1em; padding-right: 2em; text-align: right; font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;}
+table.diff tr td:nth-child(3) { width: 100%; }
+table.diff tr.diff-del { background-color: #ffcaca; }
+table.diff tr.diff-del td:nth-child(3) pre::before { content: '-'; }
+table.diff tr.diff-add { background-color: #caffca; }
+table.diff tr.diff-add td:nth-child(3) pre::before { content: '+'; }
+table.diff tr.diff-unch { background-color: #f7f7f7; }
+table.diff tr.diff-unch td:nth-child(3) pre::before { content: ' '; }
+table.diff tr, table.diff tr:nth-child(2n) { padding: 0px; margin: 0px; border: none; }
+table.diff tr td { padding: 0px; margin: 0px; border: none; }
+table.diff tr td pre { line-height: 100%; padding: 2px; margin: 0px; border: none; border-radius: 0px; background-color: inherit; }
