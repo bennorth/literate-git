@@ -12,6 +12,7 @@ def templates():
         env = jinja2.Environment(loader=loader)
         env.filters['as_html_fragment'] = as_html_fragment
         env.filters['diff_line_classification'] = Diff.line_classification
+        env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         _templates = {'node': env.get_template('node.html.tmpl'),
                       'content': env.get_template('content.html.tmpl'),
                       'diff': env.get_template('diff.html.tmpl'),
@@ -92,6 +93,11 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
         else:
             return 'diff-unch'
 
+    @staticmethod
+    def suppress_no_lineno(lineno):
+        if lineno == -1:
+            return ''
+        return str(lineno)
 
 def leaf_or_section(repo, oid):
     commit = _commit(repo, oid)
