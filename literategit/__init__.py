@@ -19,6 +19,10 @@ def templates():
                       'page': env.get_template('page.html.tmpl')}
     return _templates
 
+"""Possible approach to marginal links to tree/commit:
+
+<div style="position:relative"><h2 style="box-sizing:border-box;position:absolute;bottom:-16px;right:0px;padding-right:16px">[TREE]</h2><h2>draw_alien(): Add</h2></div>
+"""
 
 def as_html_fragment(x):
     return x.as_html_fragment()
