@@ -11,6 +11,7 @@ def templates():
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
         env.filters['as_html_fragment'] = as_html_fragment
+        env.filters['diff_line_classification'] = Diff.line_classification
         _templates = {'node': env.get_template('node.html.tmpl'),
                       'content': env.get_template('content.html.tmpl'),
                       'diff': env.get_template('diff.html.tmpl'),
@@ -81,6 +82,15 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
     def as_html_fragment(self):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
         return templates()['diff'].render(diff=diff)
+
+    @staticmethod
+    def line_classification(line):
+        if line.old_lineno == -1:
+            return 'diff-add'
+        elif line.new_lineno == -1:
+            return 'diff-del'
+        else:
+            return 'diff-unch'
 
 
 def leaf_or_section(repo, oid):
