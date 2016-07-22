@@ -1,3 +1,5 @@
+from functools import partial
+import markdown2
 import os
 import pygit2 as git
 from collections import namedtuple
@@ -5,6 +7,7 @@ import jinja2
 
 
 _templates = None
+_md = partial(markdown2.markdown, extras=['fenced-code-blocks'])
 def templates():
     global _templates
     if _templates is None:
@@ -13,6 +16,7 @@ def templates():
         env.filters['as_html_fragment'] = as_html_fragment
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
+        env.filters['markdown'] = lambda text: jinja2.Markup(_md(text))
         _templates = {'node': env.get_template('node.html.tmpl'),
                       'content': env.get_template('content.html.tmpl'),
                       'diff': env.get_template('diff.html.tmpl'),
