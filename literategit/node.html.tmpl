@@ -2,12 +2,17 @@
 
 <div class="message-body">{{ node.message_body | markdown }}</div>
 
+<div class="diff-or-children">
+{% if node.children %}
+<h2 class="nav expand">+</h2>
+<h2 class="nav collapse">-</h2>
+{% endif %}
 <div class="diff">{{ node.diff | as_html_fragment }}</div>
 
 {% if node.children %}
-<div class="expand-collapse"><p><button>Show details</button><p></div>
 <div class="children">
 {% for ch in node.children %}{{ ch | as_html_fragment }}{% endfor %}
 </div>
 {% endif %}
+</div>
 </div>
