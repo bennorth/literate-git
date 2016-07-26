@@ -13,6 +13,18 @@ $(document).ready(function() {
     var current_section_idx = 0;
     first_section.show();
 
+    function change_section(d_idx) {
+        $(sections[current_section_idx].elt).hide();
+        current_section_idx += d_idx;
+        $(sections[current_section_idx].elt).show();
+    }
+
+    function next_section() { change_section(+1); }
+    function prev_section() { change_section(-1); }
+
+    $('.literate-git-node > .nav.next').click(next_section);
+    $('.literate-git-node > .nav.prev').click(prev_section);
+
     $('.diff-or-children > .nav').click(function(e) {
         var button = $(e.target);
         var node_elt = $(e.target).parents('.literate-git-node')[0];
