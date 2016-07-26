@@ -1,4 +1,8 @@
 <div class="literate-git-node" data-commit-sha1="{{ node.commit.oid }}">
+{% if node.depth == 0 %}
+  <h2 class="nav prev">&lt;</h2>
+  <h2 class="nav next">&gt;</h2>
+{% endif %}
 <h2>{{ node.title }}</h2>
 
 <div class="message-body">{{ node.message_body | markdown }}</div>
