@@ -4,6 +4,12 @@ $(document).ready(function() {
         sections.push({idx: i, elt: e});
     });
 
+    var first_section = $(sections[0].elt);
+    first_section.children('.nav.prev').remove();
+
+    var last_section = $(sections[sections.length - 1].elt);
+    last_section.children('.nav.next').remove();
+
     $('.diff-or-children > .nav').click(function(e) {
         var button = $(e.target);
         var node_elt = $(e.target).parents('.literate-git-node')[0];
