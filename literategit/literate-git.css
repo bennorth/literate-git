@@ -13,6 +13,7 @@ table.diff tr, table.diff tr:nth-child(2n) { padding: 0px; margin: 0px; border: 
 table.diff tr td { padding: 0px; margin: 0px; border: none; }
 table.diff tr td pre { line-height: 100%; padding: 2px; margin: 0px; border: none; border-radius: 0px; background-color: inherit; }
 
+div.content > div.literate-git-node { display: none; }
 div.literate-git-node,
 div.literate-git-node > div.diff-or-children { position: relative; }
 
