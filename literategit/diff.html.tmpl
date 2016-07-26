@@ -1,7 +1,8 @@
 <div class="diff">
   {% for patch in diff %}
   <div class="patch">
-  <h4>{{ patch.delta.old_file.path }} : {{ patch.delta.new_file.path }}</h4>
+  <!-- TODO: Handle 'rename' diffs -->
+  <h4>{{ patch.delta.old_file.path }}</h4>
   {% for hunk in patch.hunks %}
   <table class="diff">
   {% for line in hunk.lines %}
