@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    var sections = [];
+    $('div.content > div.literate-git-node').each(function(i, e) {
+        sections.push({idx: i, elt: e});
+    });
+
     $('.diff-or-children > .nav').click(function(e) {
         var button = $(e.target);
         var node_elt = $(e.target).parents('.literate-git-node')[0];
