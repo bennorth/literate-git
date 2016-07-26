@@ -10,6 +10,9 @@ $(document).ready(function() {
     var last_section = $(sections[sections.length - 1].elt);
     last_section.children('.nav.next').remove();
 
+    var current_section_idx = 0;
+    first_section.show();
+
     $('.diff-or-children > .nav').click(function(e) {
         var button = $(e.target);
         var node_elt = $(e.target).parents('.literate-git-node')[0];
