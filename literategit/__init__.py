@@ -118,6 +118,13 @@ def leaf_or_section(repo, oid, depth):
         raise ValueError('cannot handle {} parents of {}'
                          .format(n_parents, oid))
 
+def n_steps_between(repo, begin_oid, end_oid):
+    n = 0
+    oid = begin_oid
+    while oid != end_oid:
+        n += 1
+        oid = repo[oid].parent_ids[0]
+    return n
 
 def list_from_range(repo, base_branch_name, branch_name):
     end_oid = repo.lookup_branch(base_branch_name).target
