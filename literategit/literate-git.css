@@ -65,6 +65,8 @@ div.literate-git-node h2.nav { cursor: pointer; }
 div.expand-collapse { background-color: #ccf; padding: 8px; text-align: center; }
 div.expand-collapse p { margin: 0px; }
 
+div.literate-git-node > div.diff-or-children { margin-top: 5ex; }
+
 div.literate-git-node > div.diff-or-children > div.children { display: none; }
 
 div.literate-git-node h4 {
