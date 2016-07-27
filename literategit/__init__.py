@@ -62,29 +62,31 @@ class Node:
         return Diff(self.repo, self.commit.tree.oid, self.commit.parents[0].tree.oid)
 
 
-class LeafCommit(namedtuple('LeafCommit', 'repo commit depth'), Node):
+class LeafCommit(namedtuple('LeafCommit', 'repo commit seqnum_path'), Node):
     @classmethod
-    def from_commit(cls, repo, oid, depth):
+    def from_commit(cls, repo, oid, seqnum_path):
         commit = _commit(repo, oid, 1, 'leaf-commit')
-        return cls(repo, commit, depth)
+        return cls(repo, commit, seqnum_path)
 
 
-class SectionCommit(namedtuple('SectionCommit', 'repo commit children depth'), Node):
+class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_path'), Node):
     @classmethod
-    def from_branch(cls, repo, branch_name, depth):
-        return cls.from_commit(repo, repo.lookup_branch(branch_name).target, depth)
+    def from_branch(cls, repo, branch_name, seqnum_path):
+        return cls.from_commit(repo, repo.lookup_branch(branch_name).target, seqnum_path)
 
     @classmethod
-    def from_commit(cls, repo, oid, depth):
+    def from_commit(cls, repo, oid, seqnum_path):
         commit = _commit(repo, oid, 2, 'section-commit')
         prev_node = commit.parent_ids[0]
         ch = commit.parent_ids[1]
         children = []
+        seqnum = n_steps_between(repo, ch, prev_node)
         while ch != prev_node:
-            children.append(leaf_or_section(repo, ch, depth + 1))
+            children.append(leaf_or_section(repo, ch, seqnum_path + [seqnum]))
             ch = repo[ch].parent_ids[0]
+            seqnum -= 1
         children.reverse()
-        return cls(repo, commit, children, depth)
+        return cls(repo, commit, children, seqnum_path)
 
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
@@ -107,13 +109,13 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
             return ''
         return str(lineno)
 
-def leaf_or_section(repo, oid, depth):
+def leaf_or_section(repo, oid, seqnum_path):
     commit = _commit(repo, oid)
     n_parents = len(commit.parent_ids)
     if n_parents == 1:
-        return LeafCommit.from_commit(repo, oid, depth)
+        return LeafCommit.from_commit(repo, oid, seqnum_path)
     elif n_parents == 2:
-        return SectionCommit.from_commit(repo, oid, depth)
+        return SectionCommit.from_commit(repo, oid, seqnum_path)
     else:
         raise ValueError('cannot handle {} parents of {}'
                          .format(n_parents, oid))
@@ -130,9 +132,11 @@ def list_from_range(repo, base_branch_name, branch_name):
     end_oid = repo.lookup_branch(base_branch_name).target
     oid = repo.lookup_branch(branch_name).target
     elements = []
+    seqnum = n_steps_between(repo, oid, end_oid)
     while oid != end_oid:
-        element = leaf_or_section(repo, oid, 0)
+        element = leaf_or_section(repo, oid, [seqnum])
         elements.append(element)
+        seqnum -= 1
         oid = element.commit.parent_ids[0]
     elements.reverse()
     return elements
