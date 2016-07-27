@@ -35,6 +35,8 @@ div.literate-git-node > div.diff-or-children > h2.nav {
     position: absolute;
     top: 0px;
     margin: 0px;
+    width: 2em;
+    text-align: center;
     padding-left: 16px;
     padding-right: 16px; }
 
