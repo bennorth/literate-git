@@ -41,4 +41,15 @@ $(document).ready(function() {
             $(diff_elt).fadeOut(250, function() { $(children_elt).fadeIn(250); });
         }
     });
+
+    $(document).keypress(function(e) {
+        if (e.which == 108) {
+            if (current_section_idx < sections.length - 1)
+                next_section();
+        }
+        else if (e.which == 104) {
+            if (current_section_idx > 0)
+                prev_section();
+        }
+    });
 });
