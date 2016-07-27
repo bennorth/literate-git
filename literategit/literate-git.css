@@ -64,3 +64,12 @@ div.expand-collapse { background-color: #ccf; padding: 8px; text-align: center; 
 div.expand-collapse p { margin: 0px; }
 
 div.literate-git-node > div.diff-or-children > div.children { display: none; }
+
+div.literate-git-node h4 {
+    padding: 8px 8px 8px 12px;
+    margin-left: -12px;
+    margin-top: 0px;
+    font: 100% Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-weight: bold;
+    background-color: #e8e8e8;
+}
