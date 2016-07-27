@@ -1,5 +1,5 @@
 <div class="literate-git-node" data-commit-sha1="{{ node.commit.oid }}">
-{% if node.depth == 0 %}
+{% if node.seqnum_path | length == 1 %}
   <h2 class="nav prev">&lt;</h2>
   <h2 class="nav next">&gt;</h2>
 {% endif %}
