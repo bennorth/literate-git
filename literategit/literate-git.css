@@ -54,7 +54,7 @@ div.literate-git-node > h2 {
     background-color: #d0d0ff;
 }
 div.literate-git-node > div.diff-or-children > div.children
-> div.literate-git-node { margin-left: 4em; }
+> div.literate-git-node { margin-left: 12px; }
 div.literate-git-node > div.diff-or-children > div.children
 > div.literate-git-node > h2 { font-size: 125%; background-color: #e0e0ff; }
 div.literate-git-node > div.diff-or-children > div.children
