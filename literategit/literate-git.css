@@ -63,6 +63,15 @@ div.literate-git-node > div.diff-or-children > div.children
 div.literate-git-node > div.diff-or-children > div.children
 > div.literate-git-node > h2 { margin-top: 7.5ex; }
 
+div.literate-git-node p.links { margin-top: 3ex; text-align: right; }
+div.literate-git-node p.links span { color: #222;
+                                     padding: 8px;
+                                     background-color: #8e8;
+                                     border: 2px solid #6a6;
+                                   }
+div.literate-git-node p.links a { margin-left: 2em; }
+div.literate-git-node p.links a:hover { text-decoration: none; }
+
 div.literate-git-node h2.nav { cursor: pointer; }
 
 div.expand-collapse { background-color: #ccf; padding: 8px; text-align: center; }
