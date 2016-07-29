@@ -8,6 +8,13 @@
 
 <div class="message-body">{{ node.message_body | markdown }}</div>
 
+<p class="links">
+  <a target="LiterateGitResult"
+     href="{{ node.commit.oid | result_url }}"><span>RESULT</span></a>
+  <a target="LiterateGitSource"
+     href="#todo"><span>SOURCE</span></a>
+</p>
+
 <div class="diff-or-children">
 {% if node.children %}
 <h2 class="nav expand">+</h2>
