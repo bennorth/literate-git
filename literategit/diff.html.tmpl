@@ -3,6 +3,7 @@
   <!-- TODO: Handle 'rename' diffs -->
   <h4>{{ patch.delta.old_file.path }}</h4>
   {% for hunk in patch.hunks %}
+  {% if not loop.first %}<p class="inter-hunk">&vellip;</p>{% endif %}
   <table class="diff">
   {% for line in hunk.lines %}
   <tr class="{{ line | diff_line_classification }}">
