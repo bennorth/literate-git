@@ -1,4 +1,6 @@
 table.diff { width: 100%; margin: 0px; }
+table.diff tr:nth-child(1) td { padding-top: 0.3333ex; }
+table.diff tr:nth-last-child(1) td { padding-bottom: 0.25ex; }
 table.diff tr { width: 100%; }
 table.diff tr td:nth-child(1),
 table.diff tr td:nth-child(2) {
