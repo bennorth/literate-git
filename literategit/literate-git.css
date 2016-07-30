@@ -63,10 +63,10 @@ div.literate-git-node > div.diff-or-children > div.children
 div.literate-git-node > div.diff-or-children > div.children
 > div.literate-git-node > h2 { margin-top: 7.5ex; }
 
-div.literate-git-node p.links { margin-top: 3ex; text-align: right; }
+div.literate-git-node p.links { margin-top: 2ex; text-align: right; font-size: 90%; }
 div.literate-git-node p.links span {
     color: #222;
-    padding: 8px;
+    padding: 4px;
     background-color: #8e8;
     border: 2px solid #6a6;
 }
