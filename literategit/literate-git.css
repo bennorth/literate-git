@@ -89,3 +89,8 @@ div.literate-git-node h4 {
     font-weight: bold;
     background-color: #e8e8e8;
 }
+
+p.inter-hunk { text-align: center;
+               font-size: 125%;
+               margin-top: 0.5ex;
+               margin-bottom: 0.5ex; }
