@@ -1,4 +1,4 @@
-table.diff { width: 100% }
+table.diff { width: 100%; margin: 0px; }
 table.diff tr { width: 100% }
 table.diff tr td:nth-child(1),
 table.diff tr td:nth-child(2) {
@@ -89,6 +89,9 @@ div.literate-git-node h4 {
     font-weight: bold;
     background-color: #e8e8e8;
 }
+
+div.diff > div.patch { margin-top: 5ex; }
+div.diff > div.patch:nth-child(1) { margin-top: 0px; }
 
 p.inter-hunk { text-align: center;
                font-size: 125%;
