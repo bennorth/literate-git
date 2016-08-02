@@ -15,6 +15,7 @@ def templates():
         env = jinja2.Environment(loader=loader)
         env.filters['as_html_fragment'] = as_html_fragment
         env.filters['result_url'] = result_url
+        env.filters['source_url'] = source_url
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = lambda text: jinja2.Markup(_md(text))
@@ -38,6 +39,12 @@ def result_url(oid):
     sha1 = oid.hex
     # TODO: Allow specification of what 'result' means for a particular project.
     return 'commit-trees/{}/{}/page.html'.format(sha1[:2], sha1[2:])
+
+
+def source_url(oid):
+    sha1 = oid.hex
+    # TODO: Proper configuration for this.
+    return 'https://github.com/bennorth/webapp-tamagotchi/tree/{}'.format(sha1)
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
