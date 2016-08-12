@@ -22,10 +22,10 @@ from literategit._version import __version__
 from literategit.cli.repo_for_path import repo_for_path
 
 
-def render(_argv=None, _print=print):
+def render(_argv=None, _path=None, _print=print):
     args = docopt.docopt(__doc__, argv=_argv,
                          version='git-literate-render {}'.format(__version__))
-    repo = repo_for_path(os.getcwd())
+    repo = repo_for_path(_path or os.getcwd())
 
     sections = literategit.list_from_range(repo,
                                            args['<begin-commit>'],
