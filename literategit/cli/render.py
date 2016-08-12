@@ -22,7 +22,7 @@ from literategit._version import __version__
 from literategit.cli.repo_for_path import repo_for_path
 
 
-def render(_argv=None):
+def render(_argv=None, _print=print):
     args = docopt.docopt(__doc__, argv=_argv,
                          version='git-literate-render {}'.format(__version__))
     repo = repo_for_path(os.getcwd())
@@ -35,4 +35,4 @@ def render(_argv=None):
     create_url_module = importlib.import_module(import_name)
     create_url = getattr(create_url_module, obj_name)
 
-    print(literategit.render(sections, create_url))
+    _print(literategit.render(sections, create_url))
