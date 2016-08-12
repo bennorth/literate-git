@@ -58,9 +58,9 @@ def _commit(repo, oid, required_n_parents=None, tag=None):
 
 
 class Node:
-    def as_html_fragment(self):
+    def as_html_fragment(self, template_suite):
         # TODO: Add 'level' argument?
-        return templates()['node'].render(node=self)
+        return template_suite.node.render(node=self)
 
     @property
     def title(self):
@@ -103,9 +103,9 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
-    def as_html_fragment(self):
+    def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
-        return templates()['diff'].render(diff=diff)
+        return template_suite.diff.render(diff=diff)
 
     @staticmethod
     def line_classification(line):
