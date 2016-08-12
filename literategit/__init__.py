@@ -6,29 +6,26 @@ from collections import namedtuple
 import jinja2
 
 
-_templates = None
 _md = partial(markdown2.markdown, extras=['fenced-code-blocks'])
-def templates():
-    global _templates
-    if _templates is None:
+
+class TemplateSuite:
+    def __init__(self, create_url):
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
-        env.filters['as_html_fragment'] = as_html_fragment
-        env.filters['result_url'] = result_url
-        env.filters['source_url'] = source_url
+        env.filters['as_html_fragment'] = self.as_html_fragment
+        env.filters['result_url'] = create_url.result_url
+        env.filters['source_url'] = create_url.source_url
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = lambda text: jinja2.Markup(_md(text))
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
-        _templates = {'node': env.get_template('node.html.tmpl'),
-                      'content': env.get_template('content.html.tmpl'),
-                      'diff': env.get_template('diff.html.tmpl'),
-                      'page': env.get_template('page.html.tmpl')}
-    return _templates
+        self.node = env.get_template('node.html.tmpl')
+        self.content = env.get_template('content.html.tmpl')
+        self.diff = env.get_template('diff.html.tmpl')
+        self.page = env.get_template('page.html.tmpl')
 
-
-def as_html_fragment(x):
-    return x.as_html_fragment()
+    def as_html_fragment(self, x):
+        return x.as_html_fragment(self)
 
 
 class HardCodedCreateUrl:
