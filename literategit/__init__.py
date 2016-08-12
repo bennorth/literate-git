@@ -6,41 +6,41 @@ from collections import namedtuple
 import jinja2
 
 
-_templates = None
-_md = partial(markdown2.markdown, extras=['fenced-code-blocks'])
-def templates():
-    global _templates
-    if _templates is None:
+class TemplateSuite:
+    def __init__(self, create_url):
+        """
+        Create a TemplateSuite instance from the given 'URL factory'.  The 'create_url'
+        argument should have attributes:
+
+        result_url --- A callable which, given a commit SHA1, returns a URL for the
+            'results' of the repo as of that commit.  The meaning of 'result' will vary
+            from project to project.
+
+        source_url --- A callable which, given a commit SHA1, returns a URL for the
+            'source' of the repo as of that commit.  This could be a GitHub 'browse the
+            tree at this commit' link, say, or some other presentation.
+        """
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
-        env.filters['as_html_fragment'] = as_html_fragment
-        env.filters['result_url'] = result_url
-        env.filters['source_url'] = source_url
+        env.filters['as_html_fragment'] = self.as_html_fragment
+        env.filters['result_url'] = create_url.result_url
+        env.filters['source_url'] = create_url.source_url
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
-        env.filters['markdown'] = lambda text: jinja2.Markup(_md(text))
+        env.filters['markdown'] = self.markdown
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
-        _templates = {'node': env.get_template('node.html.tmpl'),
-                      'content': env.get_template('content.html.tmpl'),
-                      'diff': env.get_template('diff.html.tmpl'),
-                      'page': env.get_template('page.html.tmpl')}
-    return _templates
+        self.node = env.get_template('node.html.tmpl')
+        self.content = env.get_template('content.html.tmpl')
+        self.diff = env.get_template('diff.html.tmpl')
+        self.page = env.get_template('page.html.tmpl')
 
+    def as_html_fragment(self, x):
+        return x.as_html_fragment(self)
 
-def as_html_fragment(x):
-    return x.as_html_fragment()
-
-
-def result_url(oid):
-    sha1 = oid.hex
-    # TODO: Allow specification of what 'result' means for a particular project.
-    return 'commit-trees/{}/{}/page.html'.format(sha1[:2], sha1[2:])
-
-
-def source_url(oid):
-    sha1 = oid.hex
-    # TODO: Proper configuration for this.
-    return 'https://github.com/bennorth/webapp-tamagotchi/tree/{}'.format(sha1)
+    @staticmethod
+    def markdown(source_text):
+        return jinja2.Markup(markdown2.markdown(source_text,
+                                                extras=['fenced-code-blocks']))
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
@@ -56,9 +56,9 @@ def _commit(repo, oid, required_n_parents=None, tag=None):
 
 
 class Node:
-    def as_html_fragment(self):
+    def as_html_fragment(self, template_suite):
         # TODO: Add 'level' argument?
-        return templates()['node'].render(node=self)
+        return template_suite.node.render(node=self)
 
     @property
     def title(self):
@@ -101,9 +101,9 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
-    def as_html_fragment(self):
+    def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
-        return templates()['diff'].render(diff=diff)
+        return template_suite.diff.render(diff=diff)
 
     @staticmethod
     def line_classification(line):
@@ -153,6 +153,7 @@ def list_from_range(repo, base_branch_name, branch_name):
     return elements
 
 
-def render(nodes):
-    content = templates()['content'].render(nodes=nodes)
-    return templates()['page'].render(content=content)
+def render(nodes, create_url):
+    templates = TemplateSuite(create_url)
+    content = templates.content.render(nodes=nodes)
+    return templates.page.render(content=content)
