@@ -31,16 +31,18 @@ def as_html_fragment(x):
     return x.as_html_fragment()
 
 
-def result_url(oid):
-    sha1 = oid.hex
-    # TODO: Allow specification of what 'result' means for a particular project.
-    return 'commit-trees/{}/{}/page.html'.format(sha1[:2], sha1[2:])
+class HardCodedCreateUrl:
+    @staticmethod
+    def result_url(oid):
+        sha1 = oid.hex
+        # TODO: Allow specification of what 'result' means for a particular project.
+        return 'commit-trees/{}/{}/page.html'.format(sha1[:2], sha1[2:])
 
-
-def source_url(oid):
-    sha1 = oid.hex
-    # TODO: Proper configuration for this.
-    return 'https://github.com/bennorth/webapp-tamagotchi/tree/{}'.format(sha1)
+    @staticmethod
+    def source_url(oid):
+        sha1 = oid.hex
+        # TODO: Proper configuration for this.
+        return 'https://github.com/bennorth/webapp-tamagotchi/tree/{}'.format(sha1)
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
