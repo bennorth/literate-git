@@ -17,3 +17,25 @@ def mkdir_excl(dirname):
         raise ValueError('directory "{}" already exists'
                          .format(dirname))
     os.makedirs(dirname)
+
+
+class WriteBlobs:
+    def __init__(self, repo, outdir):
+        self.repo = repo
+        self.outdir = outdir
+        self.blobs = set()
+        mkdir_excl(outdir)
+
+    def ensure_exists(self, blob_oid):
+        out_path_dirname = blob_oid.hex[:2]
+        out_path_basename = blob_oid.hex[2:]
+        full_dirname = os.path.join(self.outdir, out_path_dirname)
+        full_filename = os.path.join(full_dirname, out_path_basename)
+        if blob_oid not in self.blobs:
+            if not os.path.exists(full_dirname):
+                os.mkdir(full_dirname)
+            with open(full_filename, 'wb') as f_out:
+                data = self.repo[blob_oid].data
+                f_out.write(data)
+            self.blobs.add(blob_oid)
+        return full_filename
