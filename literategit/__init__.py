@@ -165,5 +165,6 @@ def list_from_range(repo, base_branch_name, branch_name):
 
 
 def render(nodes):
-    content = templates()['content'].render(nodes=nodes)
-    return templates()['page'].render(content=content)
+    templates = TemplateSuite(HardCodedCreateUrl)
+    content = templates.content.render(nodes=nodes)
+    return templates.page.render(content=content)
