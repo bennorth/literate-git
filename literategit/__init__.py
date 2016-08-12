@@ -153,7 +153,7 @@ def list_from_range(repo, base_branch_name, branch_name):
     return elements
 
 
-def render(nodes):
-    templates = TemplateSuite(HardCodedCreateUrl)
+def render(nodes, create_url):
+    templates = TemplateSuite(create_url)
     content = templates.content.render(nodes=nodes)
     return templates.page.render(content=content)
