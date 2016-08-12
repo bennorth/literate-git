@@ -8,6 +8,7 @@ setup(
     name='literategit',
     version=__version__,
     install_requires=['pygit2', 'markdown2', 'jinja2', 'docopt'],
+    tests_require=['pytest'],
     packages=find_packages(),
     include_package_data=True,
     entry_points={
