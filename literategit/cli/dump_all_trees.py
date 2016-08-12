@@ -11,6 +11,19 @@ Options:
 
 Write, to <output-root>, a collection of files which represent snapshots
 of all commits reachable from <rev2> but not reachable from <rev1>.
+
+The newly-created output directory contains two directories:
+
+    blobs/ --- Contains one file per blob reachable from any commit in
+        rev1..rev2.  Each blob resides in a directory named by the first
+        two characters of the blob's SHA1.  The remaining 38 characters
+        of the SHA1 give the filename within that directory.
+
+    commit-trees/ --- Contains one directory per commit, in the same
+        2/38 format as the blobs.  Each commit's directory contains the
+        files and directories making up the tree corresponding to that
+        commit.  (Files are hard links to the appropriate blob within
+        the blobs directory; directories are real directories.)
 """
 
 import os
