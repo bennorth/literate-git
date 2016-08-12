@@ -39,3 +39,31 @@ class WriteBlobs:
                 f_out.write(data)
             self.blobs.add(blob_oid)
         return full_filename
+
+
+class LinkTrees:
+    def __init__(self, repo, write_blobs, outdir):
+        self.repo = repo
+        self.write_blobs = write_blobs
+        self.outdir = outdir
+        mkdir_excl(outdir)
+
+    def new_nested(self, dirname):
+        return self.__class__(self.repo,
+                              self.write_blobs,
+                              os.path.join(self.outdir, dirname))
+
+    def new_nested_for_commit(self, commit):
+        sha1 = commit.id.hex
+        dirname = os.path.join(sha1[:2], sha1[2:])
+        return self.new_nested(dirname)
+
+    def create_all(self, tree_oid):
+        for entry in self.repo[tree_oid]:
+            if entry.type == 'blob':
+                blob_filename = self.write_blobs.ensure_exists(entry.oid)
+                os.link(blob_filename, os.path.join(self.outdir, entry.name))
+            elif entry.type == 'tree':
+                self.new_nested(entry.name).create_all(entry.oid)
+            else:
+                raise ValueError('unhandled type "{}"'.format(entry.type))
