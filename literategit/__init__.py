@@ -6,8 +6,6 @@ from collections import namedtuple
 import jinja2
 
 
-_md = partial(markdown2.markdown, extras=['fenced-code-blocks'])
-
 class TemplateSuite:
     def __init__(self, create_url):
         """
@@ -29,7 +27,7 @@ class TemplateSuite:
         env.filters['source_url'] = create_url.source_url
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
-        env.filters['markdown'] = lambda text: jinja2.Markup(_md(text))
+        env.filters['markdown'] = self.markdown
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
         self.node = env.get_template('node.html.tmpl')
         self.content = env.get_template('content.html.tmpl')
@@ -38,6 +36,11 @@ class TemplateSuite:
 
     def as_html_fragment(self, x):
         return x.as_html_fragment(self)
+
+    @staticmethod
+    def markdown(source_text):
+        return jinja2.Markup(markdown2.markdown(source_text,
+                                                extras=['fenced-code-blocks']))
 
 
 class HardCodedCreateUrl:
