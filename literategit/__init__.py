@@ -10,6 +10,18 @@ _md = partial(markdown2.markdown, extras=['fenced-code-blocks'])
 
 class TemplateSuite:
     def __init__(self, create_url):
+        """
+        Create a TemplateSuite instance from the given 'URL factory'.  The 'create_url'
+        argument should have attributes:
+
+        result_url --- A callable which, given a commit SHA1, returns a URL for the
+            'results' of the repo as of that commit.  The meaning of 'result' will vary
+            from project to project.
+
+        source_url --- A callable which, given a commit SHA1, returns a URL for the
+            'source' of the repo as of that commit.  This could be a GitHub 'browse the
+            tree at this commit' link, say, or some other presentation.
+        """
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
         env.filters['as_html_fragment'] = self.as_html_fragment
