@@ -1,0 +1,12 @@
+sudo: false
+language: python
+python:
+  - '3.4'
+  - '3.5'
+before_install:
+  - pip install --upgrade pytest
+install:
+  - pip install venvgit2
+  - python setup.py install
+script:
+  - python setup.py test
