@@ -67,3 +67,10 @@ class LinkTrees:
                 self.new_nested(entry.name).create_all(entry.oid)
             else:
                 raise ValueError('unhandled type "{}"'.format(entry.type))
+
+
+def dump_all_trees(repo, rev1, rev2, out_root):
+    write_blobs = WriteBlobs(repo, os.path.join(out_root, 'blobs'))
+    link_trees = LinkTrees(repo, write_blobs, os.path.join(out_root, 'commit-trees'))
+    for c in collect_commits(repo, rev1, rev2):
+        link_trees.new_nested_for_commit(c).create_all(c.tree.id)
