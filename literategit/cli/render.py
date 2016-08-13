@@ -3,7 +3,7 @@
 Usage:
   git-literate-render (-h | --help)
   git-literate-render --version
-  git-literate-render <begin-commit> <end-commit> <create-url>
+  git-literate-render <title> <begin-commit> <end-commit> <create-url>
 
 Options:
   -h --help    Show this help info
@@ -21,6 +21,9 @@ where 'object' within the importable 'possibly.nested.package' should
 have callable attributes 'result_url' and 'source_url'.  For example,
 'object' can be a class with the given 'staticmethod's.  For more
 details see the code (TemplateSuite).
+
+The <title> argument provides the contents of the <title> and <h1>
+elements in the rendered output.
 """
 
 import os
@@ -44,4 +47,4 @@ def render(_argv=None, _path=None, _print=print):
     create_url_module = importlib.import_module(import_name)
     create_url = getattr(create_url_module, obj_name)
 
-    _print(literategit.render(sections, create_url))
+    _print(literategit.render(sections, create_url, args['<title>']))
