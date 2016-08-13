@@ -44,7 +44,13 @@ def render(_argv=None, _path=None, _print=print):
                                            args['<end-commit>'])
 
     import_name, obj_name = args['<create-url>'].rsplit('.', 1)
-    create_url_module = importlib.import_module(import_name)
+    try:
+        create_url_module = importlib.import_module(import_name)
+    except ImportError:
+        import sys
+        sys.path.append(_path or os.getcwd())
+        create_url_module = importlib.import_module(import_name)
+
     create_url = getattr(create_url_module, obj_name)
 
     _print(literategit.render(sections, create_url, args['<title>']))
