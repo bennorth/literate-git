@@ -7,7 +7,7 @@ import jinja2
 
 
 class TemplateSuite:
-    def __init__(self, create_url):
+    def __init__(self, create_url, title):
         """
         Create a TemplateSuite instance from the given 'URL factory'.  The 'create_url'
         argument should have attributes:
@@ -153,7 +153,7 @@ def list_from_range(repo, base_branch_name, branch_name):
     return elements
 
 
-def render(nodes, create_url):
-    templates = TemplateSuite(create_url)
+def render(nodes, create_url, title):
+    templates = TemplateSuite(create_url, title)
     content = templates.content.render(nodes=nodes)
     return templates.page.render(content=content)
