@@ -7,10 +7,11 @@ import jinja2
 
 
 class TemplateSuite:
-    def __init__(self, create_url):
+    def __init__(self, create_url, title):
         """
-        Create a TemplateSuite instance from the given 'URL factory'.  The 'create_url'
-        argument should have attributes:
+        Create a TemplateSuite instance from the given 'URL factory' and title.
+
+        The 'create_url' argument should have attributes:
 
         result_url --- A callable which, given a commit SHA1, returns a URL for the
             'results' of the repo as of that commit.  The meaning of 'result' will vary
@@ -19,6 +20,10 @@ class TemplateSuite:
         source_url --- A callable which, given a commit SHA1, returns a URL for the
             'source' of the repo as of that commit.  This could be a GitHub 'browse the
             tree at this commit' link, say, or some other presentation.
+
+        The 'title' should be a string used as the content of the <title> and <h1>
+        elements.  It is made available as the global 'project_title' within the
+        constructed Jinja environment's templates.
         """
         loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
         env = jinja2.Environment(loader=loader)
@@ -29,6 +34,7 @@ class TemplateSuite:
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = self.markdown
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
+        env.globals['project_title'] = title
         self.node = env.get_template('node.html.tmpl')
         self.content = env.get_template('content.html.tmpl')
         self.diff = env.get_template('diff.html.tmpl')
@@ -153,7 +159,7 @@ def list_from_range(repo, base_branch_name, branch_name):
     return elements
 
 
-def render(nodes, create_url):
-    templates = TemplateSuite(create_url)
+def render(nodes, create_url, title):
+    templates = TemplateSuite(create_url, title)
     content = templates.content.render(nodes=nodes)
     return templates.page.render(content=content)
