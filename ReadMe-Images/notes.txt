@@ -1,0 +1,16 @@
+To generate the screenshots, the LCD-friendly text rendering was
+unhelpful.  Instead force rendering through a nested X-server:
+
+% Xephyr -ac -br -noreset -screen 1200x960 :1 &
+% DISPLAY=:1.0 firefox -geom '1200x960+0+0' &
+
+Grabbed the Xephyr window using Shutter, then post-processed using:
+
+% pngtopnm ~/Pictures/GRAB-FILE.png | pnmcut -left 7 -right 992 -top 130 -bottom 928 | pnmtopng > OUT-FILE.png
+% pngtopnm gradient.png > gradient.pnm
+% for x in initial.png expanded.png ; do
+      y0=$x:r-w640.0.pnm
+      y=$y0:r:r.png
+      pngtopnm $x | pnmscale -w 640 > $y0
+      pnminvert $y0 | pnmarith -multiply - gradient.pnm | pnminvert | ppmbrighten -v -5 | pnmtopng > $y
+  done
