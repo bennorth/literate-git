@@ -1,3 +1,12 @@
+.markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+    line-height: 1.4444;
+}
+
 table.diff { width: 100%; margin: 0px; }
 table.diff tr:nth-child(1) td { padding-top: 0.3333ex; }
 table.diff tr:nth-last-child(1) td { padding-bottom: 0.25ex; }
