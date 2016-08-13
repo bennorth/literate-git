@@ -12,6 +12,15 @@ Options:
 Write, to stdout, an HTML representation of the repo history starting
 from (but excluding) <begin-commit> and ending, inclusively, with
 <end-commit>.
+
+The <create-url> argument should be in the form
+
+    possibly.nested.package.object
+
+where 'object' within the importable 'possibly.nested.package' should
+have callable attributes 'result_url' and 'source_url'.  For example,
+'object' can be a class with the given 'staticmethod's.  For more
+details see the code (TemplateSuite).
 """
 
 import os
