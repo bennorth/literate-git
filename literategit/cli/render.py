@@ -37,14 +37,21 @@ from literategit.cli.repo_for_path import repo_for_path
 def render(_argv=None, _path=None, _print=print):
     args = docopt.docopt(__doc__, argv=_argv,
                          version='git-literate-render {}'.format(__version__))
-    repo = repo_for_path(_path or os.getcwd())
+    repo_path = _path or os.getcwd()
+    repo = repo_for_path(repo_path)
 
     sections = literategit.list_from_range(repo,
                                            args['<begin-commit>'],
                                            args['<end-commit>'])
 
     import_name, obj_name = args['<create-url>'].rsplit('.', 1)
-    create_url_module = importlib.import_module(import_name)
+    try:
+        create_url_module = importlib.import_module(import_name)
+    except ImportError:
+        import sys
+        sys.path.append(repo_path)
+        create_url_module = importlib.import_module(import_name)
+
     create_url = getattr(create_url_module, obj_name)
 
     _print(literategit.render(sections, create_url, args['<title>']))
