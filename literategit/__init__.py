@@ -29,6 +29,7 @@ class TemplateSuite:
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = self.markdown
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
+        env.globals['project_title'] = title
         self.node = env.get_template('node.html.tmpl')
         self.content = env.get_template('content.html.tmpl')
         self.diff = env.get_template('diff.html.tmpl')
