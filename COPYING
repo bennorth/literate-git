@@ -1,0 +1,61 @@
+Code and related content
+
+    literategit/__init__.py
+    literategit/cli/dump_all_trees.py
+    literategit/cli/render.py
+    literategit/cli/repo_for_path.py
+    literategit/dump_all_trees.py
+    literategit/literate-git.css
+    literategit/literate-git.js
+    tests/test_sample.py
+
+is hereby made available under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version.
+
+The file LICENCE.txt contains a copy of this License, whose copyright is
+held by the Free Software Foundation, and which itself is freely
+distributable in unmodified form.
+
+
+------------------------------------------------------------------------
+
+Non-code content, being the README and supporting images
+
+    README.md
+    ReadMe-Images/expanded-w640.png
+    ReadMe-Images/expanded.png
+    ReadMe-Images/gradient.png
+    ReadMe-Images/initial-w640.png
+    ReadMe-Images/initial.png
+
+and also the HTML templates
+
+    literategit/content.html.tmpl
+    literategit/diff.html.tmpl
+    literategit/node.html.tmpl
+    literategit/page.html.tmpl
+
+is hereby made available under the Creative Commons Attribution
+Share-Alike licence.  A summary of this licence, and link to the full
+version, can be found here:
+
+    http://creativecommons.org/licenses/by-sa/4.0/
+
+
+------------------------------------------------------------------------
+
+Trivial content
+
+    COPYING
+    .travis.yml
+    MANIFEST.in
+    setup.cfg
+    setup.py
+    ReadMe-Images/notes.txt
+    demo-top-snippet.html
+    literategit/_version.py
+    literategit/cli/__init__.py
+    tests/sample_create_url.py
+
+is hereby placed into the public domain.
