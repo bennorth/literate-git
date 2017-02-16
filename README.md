@@ -185,6 +185,22 @@ the file providing a link back to this GitHub README.
 
 ## Observations and remarks
 
+### Other work
+
+[Scott Abbey](https://www.sabbey.net/) has developed these ideas in
+the direction of creating a 'presentation' version of an existing
+public repo.  He took the Rust
+[`semver-parser` crate](https://crates.io/crates/semver-parser),
+re-wrote its commit history, and added detailed comments to explain
+its development.  The result was a
+['literate git' presentation](https://www.sabbey.net/litgit/semver-parser/).
+
+Scott took a different approach to declaring the structure of the
+commit history.  Instead of the 'magic strings in commit messages'
+approach of `git-dendrify`, he applied tags to the commits.  The work
+is described in more detail in
+[Scott's write-up](https://www.sabbey.net/litgit/).
+
 ### GitHub limitation regarding commit sorting
 
 Regrettably, GitHub shows commits in author-date order, which destroys
