@@ -20,11 +20,12 @@
 Usage:
   git-literate-render (-h | --help)
   git-literate-render --version
-  git-literate-render <title> <begin-commit> <end-commit> <create-url>
+  git-literate-render <title> <begin-commit> <end-commit> <create-url> [--no-results]
 
 Options:
-  -h --help    Show this help info
-  --version    Display version info and exit
+  -h --help     Show this help info
+  --version     Display version info and exit
+  --no\-results Don't add a results link to each commit
 
 Write, to stdout, an HTML representation of the repo history starting
 from (but excluding) <begin-commit> and ending, inclusively, with
@@ -71,4 +72,4 @@ def render(_argv=None, _path=None, _print=print):
 
     create_url = getattr(create_url_module, obj_name)
 
-    _print(literategit.render(sections, create_url, args['<title>']))
+    _print(literategit.render(sections, create_url, args['<title>'], not args['--no-results']))
