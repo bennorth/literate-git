@@ -21,7 +21,17 @@ import os
 import pygit2 as git
 from collections import namedtuple
 import jinja2
+import pygments
+import pygments.lexers
+import pygments.formatters
 
+class NakedHtmlFormatter(pygments.formatters.HtmlFormatter):
+    """A HTML formatter that doesn't wrap the lines in a <div>"""
+    def wrap(self, source, outfile):
+        for i, t in source:
+            yield i, t
+
+formatter = NakedHtmlFormatter(linenos=False, wrapcode=True)
 
 class TemplateSuite:
     def __init__(self, create_url, title):
@@ -124,9 +134,28 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
+
     def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
-        return template_suite.diff.render(diff=diff)
+
+        old_highlighted = self.collect_highlights(self.tree_0)
+        new_highlighted = self.collect_highlights(self.tree_1)
+
+        return template_suite.diff.render(diff=diff,
+                                          old_highlighted=old_highlighted,
+                                          new_highlighted=new_highlighted)
+
+    def collect_highlights(self, tree):
+        highlights = {}
+        for entry in self.repo[tree]:
+            blob = self.repo[entry.id]
+            if blob.is_binary:
+                continue
+            text = blob.data.decode()
+            lexer = pygments.lexers.get_lexer_for_filename(entry.name)
+            lines = pygments.highlight(text, lexer, formatter).split('\n')
+            highlights[entry.name] = lines
+        return highlights
 
     @staticmethod
     def line_classification(line):
@@ -178,5 +207,6 @@ def list_from_range(repo, base_branch_name, branch_name):
 
 def render(nodes, create_url, title):
     templates = TemplateSuite(create_url, title)
-    content = templates.content.render(nodes=nodes)
+    style_defs = formatter.get_style_defs('.patch')
+    content = templates.content.render(nodes=nodes, style_defs=style_defs)
     return templates.page.render(content=content)

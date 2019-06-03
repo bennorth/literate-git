@@ -39,6 +39,7 @@ table.diff tr td:nth-child(2) {
     font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 table.diff tr td:nth-child(3) { width: 100%; }
+table.diff tr td:nth-child(3) pre::before { margin-right: 1em; }
 table.diff tr.diff-del { background-color: #ffcaca; }
 table.diff tr.diff-del td:nth-child(3) pre::before { content: '-'; }
 table.diff tr.diff-add { background-color: #caffca; }
