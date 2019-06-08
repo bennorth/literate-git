@@ -25,7 +25,7 @@ Usage:
 Options:
   -h --help     Show this help info
   --version     Display version info and exit
-  --no\-results Don't add a results link to each commit
+  --no-results  Don't add a results link to each commit
 
 Write, to stdout, an HTML representation of the repo history starting
 from (but excluding) <begin-commit> and ending, inclusively, with
