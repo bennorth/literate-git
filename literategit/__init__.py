@@ -31,7 +31,6 @@ class NakedHtmlFormatter(pygments.formatters.HtmlFormatter):
         for i, t in source:
             yield i, t
 
-formatter = NakedHtmlFormatter(linenos=False, wrapcode=True)
 
 class TemplateSuite:
     def __init__(self, create_url, title, has_results=True):
@@ -135,6 +134,7 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
+    formatter = NakedHtmlFormatter(linenos=False, wrapcode=True)
 
     def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
@@ -154,7 +154,7 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                 continue
             text = blob.data.decode()
             lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-            lines = pygments.highlight(text, lexer, formatter).split('\n')
+            lines = pygments.highlight(text, lexer, self.formatter).split('\n')
             highlights[entry.name] = lines
         return highlights
 
@@ -208,6 +208,6 @@ def list_from_range(repo, base_branch_name, branch_name):
 
 def render(nodes, create_url, title, has_results=True):
     templates = TemplateSuite(create_url, title, has_results)
-    style_defs = formatter.get_style_defs('.patch')
+    style_defs = Diff.formatter.get_style_defs('.patch')
     content = templates.content.render(nodes=nodes, style_defs=style_defs)
     return templates.page.render(content=content)
