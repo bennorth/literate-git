@@ -5,13 +5,17 @@
   {% for hunk in patch.hunks %}
   {% if not loop.first %}<p class="inter-hunk">&vellip;</p>{% endif %}
   <table class="diff">
-  {% for line in hunk.lines %}
+  {%- for line in hunk.lines %}
   <tr class="{{ line | diff_line_classification }}">
     <td>{{ line.old_lineno | suppress_no_lineno }}</td>
     <td>{{ line.new_lineno | suppress_no_lineno }}</td>
-    <td><pre>{{ line.content.rstrip() | e -}}</pre></td></tr>
-  {% endfor %}
+    {%- if line.old_lineno != -1 %}
+    <td><pre>{{ old_highlighted[patch.delta.old_file.path][line.old_lineno - 1] }}</pre></td></tr>
+    {%- else %}
+    <td><pre>{{ new_highlighted[patch.delta.new_file.path][line.new_lineno - 1] }}</pre></td></tr>
+    {%- endif %}
+  {%- endfor %}
   </table>
-  {% endfor %}
+  {%- endfor %}
   </div>
   {% endfor %}
