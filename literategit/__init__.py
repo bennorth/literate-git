@@ -24,7 +24,7 @@ import jinja2
 
 
 class TemplateSuite:
-    def __init__(self, create_url, title):
+    def __init__(self, create_url, title, has_results=True):
         """
         Create a TemplateSuite instance from the given 'URL factory' and title.
 
@@ -51,6 +51,7 @@ class TemplateSuite:
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = self.markdown
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
+        env.globals['has_results'] = has_results
         env.globals['project_title'] = title
         self.node = env.get_template('node.html.tmpl')
         self.content = env.get_template('content.html.tmpl')
@@ -176,7 +177,7 @@ def list_from_range(repo, base_branch_name, branch_name):
     return elements
 
 
-def render(nodes, create_url, title):
-    templates = TemplateSuite(create_url, title)
+def render(nodes, create_url, title, has_results=True):
+    templates = TemplateSuite(create_url, title, has_results)
     content = templates.content.render(nodes=nodes)
     return templates.page.render(content=content)

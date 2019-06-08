@@ -9,8 +9,10 @@
 <div class="message-body">{{ node.message_body | markdown }}</div>
 
 <p class="links">
+{%- if has_results %}
   <a target="LiterateGitResult"
      href="{{ node.commit.oid | result_url }}"><span>RESULT</span></a>
+{%- endif %}
   <a target="LiterateGitSource"
      href="{{ node.commit.oid | source_url }}"><span>SOURCE</span></a>
 </p>
