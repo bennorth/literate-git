@@ -164,7 +164,7 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                 text = blob.data.decode()
                 try:
                     lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-                    lines = pygments.highlight(text, lexer, self.formatter).split('\n')
+                    lines = pygments.highlight(text, lexer, Diff.formatter).split('\n')
                 except pygments.util.ClassNotFound:
                     lines = text.split('\n')
                 highlights[prefix + entry.name] = lines
