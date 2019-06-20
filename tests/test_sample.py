@@ -48,6 +48,7 @@ class TestLocalRepo:
         literategit.cli.render(_argv=args,
                                _path=local_repo.path,
                                _print=output_list.append)
+        assert len(output_list) == 1
 
 
 @pytest.fixture(scope='session')
