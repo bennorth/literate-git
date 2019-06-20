@@ -45,8 +45,8 @@ $(document).ready(function() {
     $('.diff-or-children > .nav').click(function(e) {
         var button = $(e.target);
         var node_elt = $(e.target).parents('.literate-git-node')[0];
-        var expanded_hdr = $(node_elt).find('.nav.collapse');
-        var collapsed_hdr = $(node_elt).find('.nav.expand');
+        var expanded_hdr = $(node_elt).find('.nav.collapse:first');
+        var collapsed_hdr = $(node_elt).find('.nav.expand:first');
         var diff_elt = $(node_elt).find('.diff')[0];
         var children_elt = $(node_elt).find('.children')[0];
         var children_visible_p = $(children_elt).is(':visible');
