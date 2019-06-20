@@ -42,7 +42,7 @@ class TestTamagotchi:
         This is fragile in that it relies on the exact state of the 'Tamagotchi'-style
         webapp repo, but it does at least check all the parts fit together.
         """
-        args = ['My cool project', 'start', 'for-rendering', 'sample_create_url.CreateUrl']
+        args = ['My cool project', 'start', 'for-rendering', 'literategit.example_create_url.CreateUrl']
         output_list = []
         literategit.cli.render(_argv=args,
                                _path=tamagotchi_repo.path,
