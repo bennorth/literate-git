@@ -18,6 +18,7 @@
 import bs4
 import pygit2 as git
 import pytest
+import hashlib
 
 import literategit.cli
 import literategit.dump_all_trees
@@ -51,6 +52,14 @@ class TestLocalRepo:
         output_text = output_list[0]
         assert 'Add documentation' in output_text
         assert 'Add <code>colours</code> submodule' in output_text
+
+        # Regression test.  The previous two asserts are therefore unnecessary
+        # (as long as they passed while setting this hash), but leaving them in
+        # for clarity.
+        #
+        output_hash = hashlib.sha256(output_text.encode()).hexdigest()
+        exp_hash = 'e5f914e3e66a8714620bb7e4bd2a76e3c263cac045787a6284240774a7d353d2'
+        assert output_hash == exp_hash
 
 
 @pytest.fixture(scope='session')
@@ -89,3 +98,8 @@ class TestTamagotchi:
 
         assert got_sha1s == exp_sha1s
         assert len(got_sha1s) == 162  # More fragility
+
+        # Regression test.
+        output_hash = hashlib.sha256(output_text.encode()).hexdigest()
+        exp_hash = 'de1fe41a6625690806b76678d4f8b68c59c9c587b4e8720092c1db67a8527b46'
+        assert output_hash == exp_hash
