@@ -33,6 +33,9 @@ def local_repo(tmpdir_factory):
     branch = repo.lookup_branch('origin/initial-empty-state', git.GIT_BRANCH_REMOTE)
     commit = repo[branch.target]
     repo.create_branch('start', commit)
+    branch = repo.lookup_branch('origin/test-point-without-docs', git.GIT_BRANCH_REMOTE)
+    commit = repo[branch.target]
+    repo.create_branch('test-point-without-docs', commit)
     return repo
 
 
