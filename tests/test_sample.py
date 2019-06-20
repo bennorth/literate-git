@@ -75,7 +75,10 @@ class TestTamagotchi:
                                _path=tamagotchi_repo.path,
                                _print=output_list.append)
 
-        soup = bs4.BeautifulSoup(output_list[0], 'html.parser')
+        assert len(output_list) == 1
+        output_text = output_list[0]
+
+        soup = bs4.BeautifulSoup(output_text, 'html.parser')
         node_divs = soup.find_all('div', class_='literate-git-node')
         got_sha1s = sorted(d.attrs['data-commit-sha1'] for d in node_divs)
 
