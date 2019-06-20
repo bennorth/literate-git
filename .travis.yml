@@ -14,4 +14,8 @@ install:
 script:
   - git fetch origin sample-history-for-tests
   - git branch sample-history-for-tests FETCH_HEAD
+  - git fetch origin test-point-without-docs
+  - git branch test-point-without-docs FETCH_HEAD
+  - git fetch origin initial-empty-state
+  - git branch initial-empty-state FETCH_HEAD
   - python setup.py test
