@@ -18,6 +18,7 @@
 from functools import partial
 import markdown2
 import os
+import functools
 import pygit2 as git
 from collections import namedtuple
 import jinja2
@@ -147,6 +148,19 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
         return template_suite.diff.render(diff=diff,
                                           old_highlighted=old_highlighted,
                                           new_highlighted=new_highlighted)
+
+    @staticmethod
+    @functools.lru_cache(maxsize=512)
+    def _highlighted_blob(blob_oid, blob_filename):
+        repo = Diff.repo_being_cached
+        blob = repo[blob_oid]
+        text = blob.data.decode()
+        try:
+            lexer = pygments.lexers.get_lexer_for_filename(blob_filename)
+            lines = pygments.highlight(text, lexer, Diff.formatter).split('\n')
+        except pygments.util.ClassNotFound:
+            lines = text.split('\n')
+        return lines
 
     @staticmethod
     def highlighted_tree_contents(repo, tree, prefix):
