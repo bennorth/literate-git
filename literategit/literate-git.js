@@ -47,15 +47,15 @@ $(document).ready(function() {
         var node_elt = $(e.target).parents('.literate-git-node')[0];
         var expanded_hdr = $(node_elt).find('.nav.collapse:first');
         var collapsed_hdr = $(node_elt).find('.nav.expand:first');
-        var diff_elt = $(node_elt).find('.diff')[0];
-        var children_elt = $(node_elt).find('.children')[0];
+        var diff_elt = $(node_elt).find('.diff:first');
+        var children_elt = $(node_elt).find('.children:first');
         var children_visible_p = $(children_elt).is(':visible');
         if (children_visible_p) {
             expanded_hdr.fadeOut(250, function() { collapsed_hdr.fadeIn(250); });
-            $(children_elt).fadeOut(250, function() { $(diff_elt).fadeIn(250); });
+            children_elt.fadeOut(250, function() { $(diff_elt).fadeIn(250); });
         } else {
             collapsed_hdr.fadeOut(250, function() { expanded_hdr.fadeIn(250); });
-            $(diff_elt).fadeOut(250, function() { $(children_elt).fadeIn(250); });
+            diff_elt.fadeOut(250, function() { $(children_elt).fadeIn(250); });
         }
     });
 
