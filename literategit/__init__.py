@@ -136,6 +136,7 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
     formatter = NakedHtmlFormatter(linenos=False, wrapcode=True)
+    repo_being_cached = None
 
     def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
@@ -149,6 +150,9 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
 
     @staticmethod
     def highlighted_tree_contents(repo, tree, prefix):
+        if repo is not Diff.repo_being_cached:
+            Diff.repo_being_cached = repo
+
         highlights = {}
         for entry in repo[tree]:
             obj = repo[entry.id]
