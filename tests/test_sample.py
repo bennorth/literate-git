@@ -41,13 +41,15 @@ def local_repo(tmpdir_factory):
 
 class TestLocalRepo:
     def test_render(self, local_repo):
-        args = ['My cool project', 'start', 'test-point-without-docs',
+        args = ['My cool project', 'start', 'sample-history-for-tests',
                 'literategit.example_create_url.CreateUrl']
         output_list = []
         literategit.cli.render(_argv=args,
                                _path=local_repo.path,
                                _print=output_list.append)
         assert len(output_list) == 1
+        output_text = output_list[0]
+        assert "Add documentation" in output_text
 
 
 @pytest.fixture(scope='session')

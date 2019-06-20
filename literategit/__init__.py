@@ -24,6 +24,7 @@ import jinja2
 import pygments
 import pygments.lexers
 import pygments.formatters
+import pygments.util
 
 class NakedHtmlFormatter(pygments.formatters.HtmlFormatter):
     """A HTML formatter that doesn't wrap the lines in a <div>"""
@@ -161,8 +162,11 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                 if blob.is_binary:
                     continue
                 text = blob.data.decode()
-                lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-                lines = pygments.highlight(text, lexer, self.formatter).split('\n')
+                try:
+                    lexer = pygments.lexers.get_lexer_for_filename(entry.name)
+                    lines = pygments.highlight(text, lexer, self.formatter).split('\n')
+                except pygments.util.ClassNotFound:
+                    lines = text.split('\n')
                 highlights[prefix + entry.name] = lines
         return highlights
 
