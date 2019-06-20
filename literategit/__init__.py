@@ -165,6 +165,7 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
     @staticmethod
     def highlighted_tree_contents(repo, tree, prefix):
         if repo is not Diff.repo_being_cached:
+            Diff._highlighted_blob.cache_clear()
             Diff.repo_being_cached = repo
 
         highlights = {}
