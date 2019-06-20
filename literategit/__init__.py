@@ -18,6 +18,7 @@
 from functools import partial
 import markdown2
 import os
+import functools
 import pygit2 as git
 from collections import namedtuple
 import jinja2
@@ -136,6 +137,7 @@ class SectionCommit(namedtuple('SectionCommit', 'repo commit children seqnum_pat
 
 class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
     formatter = NakedHtmlFormatter(linenos=False, wrapcode=True)
+    repo_being_cached = None
 
     def as_html_fragment(self, template_suite):
         diff = self.repo.diff(self.repo[self.tree_0], self.repo[self.tree_1])
@@ -147,13 +149,31 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                                           old_highlighted=old_highlighted,
                                           new_highlighted=new_highlighted)
 
-    def collect_highlights(self, tree, prefix=''):
+    @staticmethod
+    @functools.lru_cache(maxsize=512)
+    def _highlighted_blob(blob_oid, blob_filename):
+        repo = Diff.repo_being_cached
+        blob = repo[blob_oid]
+        text = blob.data.decode()
+        try:
+            lexer = pygments.lexers.get_lexer_for_filename(blob_filename)
+            lines = pygments.highlight(text, lexer, Diff.formatter).split('\n')
+        except pygments.util.ClassNotFound:
+            lines = text.split('\n')
+        return lines
+
+    @staticmethod
+    def highlighted_tree_contents(repo, tree, prefix):
+        if repo is not Diff.repo_being_cached:
+            Diff._highlighted_blob.cache_clear()
+            Diff.repo_being_cached = repo
+
         highlights = {}
-        for entry in self.repo[tree]:
-            obj = self.repo[entry.id]
+        for entry in repo[tree]:
+            obj = repo[entry.id]
             if obj.type == git.GIT_OBJ_TREE:
                 highlights.update(
-                    self.collect_highlights(obj.oid, prefix + entry.name + '/'))
+                    Diff.highlighted_tree_contents(repo, obj.oid, prefix + entry.name + '/'))
             elif obj.type != git.GIT_OBJ_BLOB:
                 raise ValueError('expecting only TREEs or BLOBs; got {}'
                                  .format(obj.type))
@@ -161,14 +181,12 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                 blob = obj  # Now we know we have a BLOB
                 if blob.is_binary:
                     continue
-                text = blob.data.decode()
-                try:
-                    lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-                    lines = pygments.highlight(text, lexer, self.formatter).split('\n')
-                except pygments.util.ClassNotFound:
-                    lines = text.split('\n')
+                lines = Diff._highlighted_blob(entry.id, entry.name)
                 highlights[prefix + entry.name] = lines
         return highlights
+
+    def collect_highlights(self, tree, prefix=''):
+        return Diff.highlighted_tree_contents(self.repo, tree, prefix)
 
     @staticmethod
     def line_classification(line):
