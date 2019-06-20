@@ -146,16 +146,24 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                                           old_highlighted=old_highlighted,
                                           new_highlighted=new_highlighted)
 
-    def collect_highlights(self, tree):
+    def collect_highlights(self, tree, prefix=''):
         highlights = {}
         for entry in self.repo[tree]:
-            blob = self.repo[entry.id]
-            if blob.is_binary:
-                continue
-            text = blob.data.decode()
-            lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-            lines = pygments.highlight(text, lexer, self.formatter).split('\n')
-            highlights[entry.name] = lines
+            obj = self.repo[entry.id]
+            if obj.type == git.GIT_OBJ_TREE:
+                highlights.update(
+                    self.collect_highlights(obj.oid, prefix + entry.name + '/'))
+            elif obj.type != git.GIT_OBJ_BLOB:
+                raise ValueError('expecting only TREEs or BLOBs; got {}'
+                                 .format(obj.type))
+            else:
+                blob = obj  # Now we know we have a BLOB
+                if blob.is_binary:
+                    continue
+                text = blob.data.decode()
+                lexer = pygments.lexers.get_lexer_for_filename(entry.name)
+                lines = pygments.highlight(text, lexer, self.formatter).split('\n')
+                highlights[prefix + entry.name] = lines
         return highlights
 
     @staticmethod
