@@ -147,13 +147,14 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                                           old_highlighted=old_highlighted,
                                           new_highlighted=new_highlighted)
 
-    def collect_highlights(self, tree, prefix=''):
+    @staticmethod
+    def highlighted_tree_contents(repo, tree, prefix):
         highlights = {}
-        for entry in self.repo[tree]:
-            obj = self.repo[entry.id]
+        for entry in repo[tree]:
+            obj = repo[entry.id]
             if obj.type == git.GIT_OBJ_TREE:
                 highlights.update(
-                    self.collect_highlights(obj.oid, prefix + entry.name + '/'))
+                    Diff.highlighted_tree_contents(repo, obj.oid, prefix + entry.name + '/'))
             elif obj.type != git.GIT_OBJ_BLOB:
                 raise ValueError('expecting only TREEs or BLOBs; got {}'
                                  .format(obj.type))
@@ -169,6 +170,9 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                     lines = text.split('\n')
                 highlights[prefix + entry.name] = lines
         return highlights
+
+    def collect_highlights(self, tree, prefix=''):
+        return Diff.highlighted_tree_contents(self.repo, tree, prefix)
 
     @staticmethod
     def line_classification(line):
