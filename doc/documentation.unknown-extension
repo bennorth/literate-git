@@ -1,0 +1,2 @@
+This is to test handling of syntax highlighting when pygments doesn't
+know what sort of file it is by the extension of the filename.
