@@ -181,12 +181,7 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
                 blob = obj  # Now we know we have a BLOB
                 if blob.is_binary:
                     continue
-                text = blob.data.decode()
-                try:
-                    lexer = pygments.lexers.get_lexer_for_filename(entry.name)
-                    lines = pygments.highlight(text, lexer, Diff.formatter).split('\n')
-                except pygments.util.ClassNotFound:
-                    lines = text.split('\n')
+                lines = Diff._highlighted_blob(entry.id, entry.name)
                 highlights[prefix + entry.name] = lines
         return highlights
 
