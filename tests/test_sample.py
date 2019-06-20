@@ -41,7 +41,7 @@ def local_repo(tmpdir_factory):
 
 class TestLocalRepo:
     def test_render(self, local_repo):
-        args = ['My cool project', 'start', 'test-point-without-docs',
+        args = ['My cool project', 'start', 'sample-history-for-tests',
                 'literategit.example_create_url.CreateUrl']
         output_list = []
         literategit.cli.render(_argv=args,
