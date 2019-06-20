@@ -48,6 +48,8 @@ class TestLocalRepo:
                                _path=local_repo.path,
                                _print=output_list.append)
         assert len(output_list) == 1
+        output_text = output_list[0]
+        assert "Add documentation" in output_text
 
 
 @pytest.fixture(scope='session')
