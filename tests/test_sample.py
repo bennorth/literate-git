@@ -36,6 +36,17 @@ def local_repo(tmpdir_factory):
     return repo
 
 
+class TestLocalRepo:
+    @pytest.mark.xfail
+    def test_render(self, local_repo):
+        args = ['My cool project', 'start', 'sample-history-for-tests',
+                'literategit.example_create_url.CreateUrl']
+        output_list = []
+        literategit.cli.render(_argv=args,
+                               _path=local_repo.path,
+                               _print=output_list.append)
+
+
 @pytest.fixture(scope='session')
 def tamagotchi_repo(tmpdir_factory):
     repo_root = str(tmpdir_factory.mktemp('repo'))
