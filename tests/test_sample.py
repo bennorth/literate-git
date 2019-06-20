@@ -42,7 +42,7 @@ def local_repo(tmpdir_factory):
 class TestLocalRepo:
     @pytest.mark.xfail
     def test_render(self, local_repo):
-        args = ['My cool project', 'start', 'sample-history-for-tests',
+        args = ['My cool project', 'start', 'test-point-without-docs',
                 'literategit.example_create_url.CreateUrl']
         output_list = []
         literategit.cli.render(_argv=args,
