@@ -27,6 +27,27 @@ tamagotchi_github_url = 'https://github.com/bennorth/webapp-tamagotchi.git'
 
 
 @pytest.fixture(scope='session')
+def local_repo(tmpdir_factory):
+    repo_root = str(tmpdir_factory.mktemp('repo'))
+    repo = git.clone_repository('..', repo_root, checkout_branch='sample-history-for-tests')
+    branch = repo.lookup_branch('origin/initial-empty-state', git.GIT_BRANCH_REMOTE)
+    commit = repo[branch.target]
+    repo.create_branch('start', commit)
+    return repo
+
+
+class TestLocalRepo:
+    @pytest.mark.xfail
+    def test_render(self, local_repo):
+        args = ['My cool project', 'start', 'sample-history-for-tests',
+                'literategit.example_create_url.CreateUrl']
+        output_list = []
+        literategit.cli.render(_argv=args,
+                               _path=local_repo.path,
+                               _print=output_list.append)
+
+
+@pytest.fixture(scope='session')
 def tamagotchi_repo(tmpdir_factory):
     repo_root = str(tmpdir_factory.mktemp('repo'))
     repo = git.clone_repository(tamagotchi_github_url, repo_root, checkout_branch='for-rendering')

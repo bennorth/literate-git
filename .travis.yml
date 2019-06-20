@@ -12,4 +12,6 @@ install:
   - pip install venvgit2
   - python setup.py install
 script:
+  - git fetch origin sample-history-for-tests
+  - git branch sample-history-for-tests FETCH_HEAD
   - python setup.py test
