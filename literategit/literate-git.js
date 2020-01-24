@@ -175,9 +175,11 @@ $(document).ready(function() {
     tooltips.maybe_show_all(first_section);
 
     function change_section(d_idx) {
+        tooltips.hide_all();
         $(sections[current_section_idx].elt).hide();
         current_section_idx += d_idx;
         $(sections[current_section_idx].elt).show();
+        tooltips.maybe_show_all(sections[current_section_idx].elt);
     }
 
     function next_section() { change_section(+1); }
