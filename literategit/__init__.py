@@ -61,6 +61,7 @@ class TemplateSuite:
         env.filters['diff_line_classification'] = Diff.line_classification
         env.filters['suppress_no_lineno'] = Diff.suppress_no_lineno
         env.filters['markdown'] = self.markdown
+        env.filters['markdown_inner_only'] = self.markdown_inner_only
         env.filters['section_path'] = lambda path: '.'.join(map(str, path))
         env.globals['has_results'] = has_results
         env.globals['project_title'] = title
@@ -76,6 +77,20 @@ class TemplateSuite:
     def markdown(source_text):
         return jinja2.Markup(markdown2.markdown(source_text,
                                                 extras=['fenced-code-blocks']))
+
+    @staticmethod
+    def markdown_inner_only(source_text):
+        full_markdown = jinja2.Markup(markdown2.markdown(source_text)).rstrip()
+
+        outermost_is_p = (full_markdown.startswith('<p>')
+                          and full_markdown.endswith('</p>'))
+
+        if not outermost_is_p:
+            raise ValueError(
+                'expecting markdown which converts to a paragraph; got "{}"'
+                .format(full_markdown))
+
+        return full_markdown[3:-4]
 
 
 def _commit(repo, oid, required_n_parents=None, tag=None):
