@@ -148,6 +148,12 @@ $(document).ready(function() {
         const hide_all = () => {
             all_tooltips.forEach(ttip => ttip.hide());
         };
+
+        return {
+            maybe_show_all,
+            maybe_show,
+            hide_all,
+        };
     })();
 
     var sections = [];
