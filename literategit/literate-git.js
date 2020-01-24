@@ -16,6 +16,37 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 $(document).ready(function() {
+
+    ////////////////////////////////////////////////////////////////////////////////
+    //
+    // Tooltips
+    //
+    // Provide a tooltip for each navigation element (next, previous, expand,
+    // collapse), with the help of the Popper library.  For each navigation element,
+    // we show a tooltip for that element whenever we display a new section, until
+    // the user either explicitly dismisses the tooltip, or clicks on the navigation
+    // element the tooltip is for.  E.g., we show an 'expand' tooltip as the user
+    // steps through the sections, until the user dismisses it or clicks the
+    // 'expand' button.
+    //
+    // An individual NavTooltip instance provides this behaviour for one of the
+    // navigation buttons, via state
+    //
+    //   should_be_shown --- Should a tooltip appear when displaying a new section?
+    //   Starts 'true'; changes to 'false' when the tooltip is dismissed or the
+    //   navigation button clicked.
+    //
+    // and methods
+    //
+    //   maybe_show(section) --- To be called after making the given section
+    //   visible.  If 'should_be_shown' holds, then find the now-visible instance of
+    //   the relevant button in this section, and attach a Popper tooltip to it.
+    //
+    //   hide() --- Destroy the Popper object and hide the tooltip element.
+    //
+    //   dismiss() --- Same as hide(), but also set 'should_be_shown' to 'false',
+    //   thereby stopping the tooltip from re-appearing.
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
