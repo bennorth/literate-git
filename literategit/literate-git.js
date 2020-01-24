@@ -104,6 +104,58 @@ $(document).ready(function() {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    //
+    // 'All tooltips' object
+    //
+    // Gather the behaviour for all four tooltips together, via
+    // methods
+    //
+    //   maybe_show_all(section) --- On displaying the given new
+    //   section, show every non-dismissed tooltip.
+    //
+    //   maybe_show(tag, section) --- If the tooltip for the
+    //   navigation element with the given tag should be shown, do
+    //   so.  (Used to show the 'collapse' tooltip after the user
+    //   expands the section.)
+    //
+    //   hide_all() --- Hide all currently-visible tooltips.
+
+    const tooltips = (() => {
+        const all_tooltips = new Map([
+            ['next', new NavTooltip('.nav.next',
+                                    'tooltip-next',
+                                    'left')],
+            ['previous', new NavTooltip('.nav.prev',
+                                        'tooltip-previous',
+                                        'bottom')],
+            ['expand', new NavTooltip('.diff-or-children > .nav.expand',
+                                      'tooltip-expand',
+                                      'bottom')],
+            ['collapse', new NavTooltip('.diff-or-children > .nav.collapse',
+                                        'tooltip-collapse',
+                                        'bottom')],
+        ]);
+
+        const maybe_show_all = section_elt => {
+            all_tooltips.forEach(ttip => ttip.maybe_show(section_elt));
+        };
+
+        const maybe_show = (tag, section_elt) => {
+            all_tooltips.get(tag).maybe_show(section_elt);
+        };
+
+        const hide_all = () => {
+            all_tooltips.forEach(ttip => ttip.hide());
+        };
+
+        return {
+            maybe_show_all,
+            maybe_show,
+            hide_all,
+        };
+    })();
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
