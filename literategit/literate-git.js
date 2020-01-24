@@ -87,6 +87,16 @@ $(document).ready(function() {
             $(this.dismiss_elt).on("click.tooltip", () => this.dismiss());
             $(this.button_elt).on("click.tooltip", () => this.dismiss());
         }
+
+        hide() {
+            if (this.popper !== null) {
+                $(this.dismiss_elt).off("click.tooltip");
+                $(this.button_elt).off("click.tooltip")
+                $(this.tooltip_elt).hide();
+                this.popper.destroy();
+                this.popper = null;
+            }
+        }
     }
 
     var sections = [];
