@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import bs4
 import pygit2 as git
 import pytest
@@ -40,6 +41,30 @@ def local_repo(tmpdir_factory):
     return repo
 
 
+def maybe_dump(fname_prefix, text):
+    """
+    Use the env.var LITGIT_TEST_DUMP_FNAME_SUFFIX to request
+    that the output used in the regression tests be dumped to files.
+    For example,
+
+        LITGIT_TEST_DUMP_FNAME_SUFFIX="-new.txt" python setup.py test
+
+    will generate files
+
+        TestLocalRepo-new.txt
+        TestTamagotchi-new.txt
+
+    containing the rendered output of the two tests.  This eases the job
+    of comparing old to new rendering, when checking that only expected
+    changes have happened before updating the regression test hashes.
+    """
+    maybe_fname_suffix = os.getenv('LITGIT_TEST_DUMP_FNAME_SUFFIX')
+    if maybe_fname_suffix:
+        fname = '{}{}'.format(fname_prefix, maybe_fname_suffix)
+        with open(fname, 'wt') as f_out:
+            f_out.write(text)
+
+
 class TestLocalRepo:
     def test_render(self, local_repo):
         args = ['My cool project', 'start', 'sample-history-for-tests',
@@ -50,6 +75,9 @@ class TestLocalRepo:
                                _print=output_list.append)
         assert len(output_list) == 1
         output_text = output_list[0]
+
+        maybe_dump('TestLocalRepo', output_text)
+
         assert 'Add documentation' in output_text
         assert 'Add <code>colours</code> submodule' in output_text
 
@@ -86,6 +114,8 @@ class TestTamagotchi:
 
         assert len(output_list) == 1
         output_text = output_list[0]
+
+        maybe_dump('TestTamagotchi', output_text)
 
         soup = bs4.BeautifulSoup(output_text, 'html.parser')
         node_divs = soup.find_all('div', class_='literate-git-node')
