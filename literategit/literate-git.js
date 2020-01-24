@@ -156,6 +156,9 @@ $(document).ready(function() {
         };
     })();
 
+
+    ////////////////////////////////////////////////////////////////////////////////
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
@@ -169,11 +172,14 @@ $(document).ready(function() {
 
     var current_section_idx = 0;
     first_section.show();
+    tooltips.maybe_show_all(first_section);
 
     function change_section(d_idx) {
+        tooltips.hide_all();
         $(sections[current_section_idx].elt).hide();
         current_section_idx += d_idx;
         $(sections[current_section_idx].elt).show();
+        tooltips.maybe_show_all(sections[current_section_idx].elt);
     }
 
     function next_section() { change_section(+1); }
@@ -194,7 +200,9 @@ $(document).ready(function() {
             expanded_hdr.fadeOut(250, function() { collapsed_hdr.fadeIn(250); });
             children_elt.fadeOut(250, function() { $(diff_elt).fadeIn(250); });
         } else {
-            collapsed_hdr.fadeOut(250, function() { expanded_hdr.fadeIn(250); });
+            collapsed_hdr.fadeOut(250, function() {
+                expanded_hdr.fadeIn(250, function() {
+                    tooltips.maybe_show('collapse', node_elt); }); });
             diff_elt.fadeOut(250, function() { $(children_elt).fadeIn(250); });
         }
     });
