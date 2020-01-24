@@ -56,6 +56,37 @@ $(document).ready(function() {
             this.popper = null;
             this.dismiss_elt = null;
         }
+
+        maybe_show(section_elt) {
+            if (! this.should_be_shown)
+                return;
+
+            const full_button_selector = `${this.button_selector}:visible`;
+            const button_elts = $(section_elt).find(full_button_selector);
+
+            // Maybe there isn't such an element in this section.  (E.g., a
+            // simple section with no sub-branches has no 'expand'; the first
+            // section has no 'previous'.)
+            if (button_elts.length == 0)
+                return;
+
+            this.button_elt = button_elts[0];
+
+            this.popper = Popper.createPopper(
+                this.button_elt,
+                this.tooltip_elt,
+                { placement: this.placement,
+                  modifiers: [
+                      { name: 'arrow' },
+                      { name: 'offset', options: { 'offset': [0, 8] } } ] });
+
+            $(this.tooltip_elt).show();
+
+            this.dismiss_elt = $(this.tooltip_elt).find(".dismiss span")[0];
+
+            $(this.dismiss_elt).on("click.tooltip", () => this.dismiss());
+            $(this.button_elt).on("click.tooltip", () => this.dismiss());
+        }
     }
 
     var sections = [];
