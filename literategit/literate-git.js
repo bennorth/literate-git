@@ -122,6 +122,20 @@ $(document).ready(function() {
     //   hide_all() --- Hide all currently-visible tooltips.
 
     const tooltips = (() => {
+        const all_tooltips = new Map([
+            ['next', new NavTooltip('.nav.next',
+                                    'tooltip-next',
+                                    'left')],
+            ['previous', new NavTooltip('.nav.prev',
+                                        'tooltip-previous',
+                                        'bottom')],
+            ['expand', new NavTooltip('.diff-or-children > .nav.expand',
+                                      'tooltip-expand',
+                                      'bottom')],
+            ['collapse', new NavTooltip('.diff-or-children > .nav.collapse',
+                                        'tooltip-collapse',
+                                        'bottom')],
+        ]);
     })();
 
     var sections = [];
