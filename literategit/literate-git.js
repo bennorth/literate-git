@@ -136,6 +136,18 @@ $(document).ready(function() {
                                         'tooltip-collapse',
                                         'bottom')],
         ]);
+
+        const maybe_show_all = section_elt => {
+            all_tooltips.forEach(ttip => ttip.maybe_show(section_elt));
+        };
+
+        const maybe_show = (tag, section_elt) => {
+            all_tooltips.get(tag).maybe_show(section_elt);
+        };
+
+        const hide_all = () => {
+            all_tooltips.forEach(ttip => ttip.hide());
+        };
     })();
 
     var sections = [];
