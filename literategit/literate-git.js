@@ -97,6 +97,11 @@ $(document).ready(function() {
                 this.popper = null;
             }
         }
+
+        dismiss() {
+            this.hide();
+            this.should_be_shown = false;
+        }
     }
 
     var sections = [];
