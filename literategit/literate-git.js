@@ -47,6 +47,9 @@ $(document).ready(function() {
     //   dismiss() --- Same as hide(), but also set 'should_be_shown' to 'false',
     //   thereby stopping the tooltip from re-appearing.
 
+    class NavTooltip {
+    }
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
