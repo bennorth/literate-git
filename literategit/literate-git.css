@@ -75,6 +75,11 @@ div.literate-git-node > div.diff-or-children > h2.nav {
     padding-right: 16px; }
 
 span.sec-num { margin-right: 0.75em; font-weight: normal; }
+
+div.literate-git-node h2.nav {
+    border-radius: 6px;
+}
+
 div.literate-git-node h2.nav.prev,
 div.literate-git-node h2.nav.expand,
 div.literate-git-node h2.nav.collapse { left: -96px; }
