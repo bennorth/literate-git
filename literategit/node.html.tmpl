@@ -4,7 +4,7 @@
   <h2 class="nav next">&gt;</h2>
 {% endif %}
 <h2><span class="sec-num">{{ node.seqnum_path | section_path }}</span>
-    {{ node.title | markdown }}</h2>
+    {{ node.title | markdown_inner_only }}</h2>
 
 <div class="message-body">{{ node.message_body | markdown }}</div>
 
