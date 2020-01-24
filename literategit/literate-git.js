@@ -121,6 +121,9 @@ $(document).ready(function() {
     //
     //   hide_all() --- Hide all currently-visible tooltips.
 
+    const tooltips = (() => {
+    })();
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
