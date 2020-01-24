@@ -42,6 +42,22 @@ def local_repo(tmpdir_factory):
 
 
 def maybe_dump(fname_prefix, text):
+    """
+    Use the env.var LITGIT_TEST_DUMP_FNAME_SUFFIX to request
+    that the output used in the regression tests be dumped to files.
+    For example,
+
+        LITGIT_TEST_DUMP_FNAME_SUFFIX="-new.txt" python setup.py test
+
+    will generate files
+
+        TestLocalRepo-new.txt
+        TestTamagotchi-new.txt
+
+    containing the rendered output of the two tests.  This eases the job
+    of comparing old to new rendering, when checking that only expected
+    changes have happened before updating the regression test hashes.
+    """
     maybe_fname_suffix = os.getenv('LITGIT_TEST_DUMP_FNAME_SUFFIX')
     if maybe_fname_suffix:
         fname = '{}{}'.format(fname_prefix, maybe_fname_suffix)
