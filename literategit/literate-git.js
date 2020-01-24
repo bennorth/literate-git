@@ -48,6 +48,14 @@ $(document).ready(function() {
     //   thereby stopping the tooltip from re-appearing.
 
     class NavTooltip {
+        constructor(button_selector, tooltip_id, placement) {
+            this.button_selector = button_selector;
+            this.tooltip_elt = $(`#${tooltip_id}`)[0];
+            this.placement = placement;
+            this.should_be_shown = true;
+            this.popper = null;
+            this.dismiss_elt = null;
+        }
     }
 
     var sections = [];
