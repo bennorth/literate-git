@@ -200,7 +200,8 @@ $(document).ready(function() {
             expanded_hdr.fadeOut(250, function() { collapsed_hdr.fadeIn(250); });
             children_elt.fadeOut(250, function() { $(diff_elt).fadeIn(250); });
         } else {
-            collapsed_hdr.fadeOut(250, function() { expanded_hdr.fadeIn(250); });
+            collapsed_hdr.fadeOut(250, function() {
+                expanded_hdr.fadeIn(250); });
             diff_elt.fadeOut(250, function() { $(children_elt).fadeIn(250); });
         }
     });
