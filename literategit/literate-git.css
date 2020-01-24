@@ -20,9 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .markdown-body {
     box-sizing: border-box;
     min-width: 200px;
-    max-width: 980px;
+    max-width: 1160px;
     margin: 0 auto;
-    padding: 45px;
+    /* Use more padding on left and right to prevent expand buttons
+     * being cut off on smaller viewports
+     */
+    padding: 45px 90px 45px 90px;
     line-height: 1.4444;
 }
 
@@ -72,6 +75,11 @@ div.literate-git-node > div.diff-or-children > h2.nav {
     padding-right: 16px; }
 
 span.sec-num { margin-right: 0.75em; font-weight: normal; }
+
+div.literate-git-node h2.nav {
+    border-radius: 6px;
+}
+
 div.literate-git-node h2.nav.prev,
 div.literate-git-node h2.nav.expand,
 div.literate-git-node h2.nav.collapse { left: -96px; }
@@ -187,7 +195,7 @@ div.project-link-footer p {
 }
 
 /* Thanks, https://stackoverflow.com/questions/826782 */
-.noselect {
+.noselect, div.literate-git-node h2.nav {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
