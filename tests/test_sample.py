@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import bs4
 import pygit2 as git
 import pytest
@@ -38,6 +39,14 @@ def local_repo(tmpdir_factory):
     commit = repo[branch.target]
     repo.create_branch('test-point-without-docs', commit)
     return repo
+
+
+def maybe_dump(fname_prefix, text):
+    maybe_fname_suffix = os.getenv('LITGIT_TEST_DUMP_FNAME_SUFFIX')
+    if maybe_fname_suffix:
+        fname = '{}{}'.format(fname_prefix, maybe_fname_suffix)
+        with open(fname, 'wt') as f_out:
+            f_out.write(text)
 
 
 class TestLocalRepo:
