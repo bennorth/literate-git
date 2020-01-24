@@ -59,6 +59,9 @@ class TestLocalRepo:
                                _print=output_list.append)
         assert len(output_list) == 1
         output_text = output_list[0]
+
+        maybe_dump('TestLocalRepo', output_text)
+
         assert 'Add documentation' in output_text
         assert 'Add <code>colours</code> submodule' in output_text
 
@@ -95,6 +98,8 @@ class TestTamagotchi:
 
         assert len(output_list) == 1
         output_text = output_list[0]
+
+        maybe_dump('TestTamagotchi', output_text)
 
         soup = bs4.BeautifulSoup(output_text, 'html.parser')
         node_divs = soup.find_all('div', class_='literate-git-node')
