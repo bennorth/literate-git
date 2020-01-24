@@ -145,3 +145,54 @@ div.project-link-footer p {
     padding: 16px;
     margin: 0px;
 }
+
+.nav-tooltip {
+    background-color: #040;
+    padding: 2ex 1em 0ex 1em;
+    width: 18em;
+    border-radius: 6px;
+    display: none;
+}
+
+.nav-tooltip p {
+    color: white;
+}
+
+.nav-tooltip p.dismiss {
+    text-align: right;
+    font-size: 90%;
+}
+
+.nav-tooltip p.dismiss span {
+    cursor: pointer;
+}
+
+.nav-tooltip[data-popper-placement^='top'] .tooltip-arrow { bottom: -4px; }
+.nav-tooltip[data-popper-placement^='bottom'] .tooltip-arrow { top: -4px; }
+.nav-tooltip[data-popper-placement^='left'] .tooltip-arrow { right: -4px; }
+.nav-tooltip[data-popper-placement^='right'] .tooltip-arrow { left: -4px; }
+
+.tooltip-arrow,
+.tooltip-arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  z-index: -1;
+}
+
+.tooltip-arrow::before {
+  content: '';
+  transform: rotate(45deg);
+  background: #040;
+}
+
+/* Thanks, https://stackoverflow.com/questions/826782 */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
