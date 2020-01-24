@@ -156,6 +156,9 @@ $(document).ready(function() {
         };
     })();
 
+
+    ////////////////////////////////////////////////////////////////////////////////
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
