@@ -195,7 +195,7 @@ div.project-link-footer p {
 }
 
 /* Thanks, https://stackoverflow.com/questions/826782 */
-.noselect {
+.noselect, div.literate-git-node h2.nav {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
