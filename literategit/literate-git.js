@@ -104,6 +104,23 @@ $(document).ready(function() {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    //
+    // 'All tooltips' object
+    //
+    // Gather the behaviour for all four tooltips together, via
+    // methods
+    //
+    //   maybe_show_all(section) --- On displaying the given new
+    //   section, show every non-dismissed tooltip.
+    //
+    //   maybe_show(tag, section) --- If the tooltip for the
+    //   navigation element with the given tag should be shown, do
+    //   so.  (Used to show the 'collapse' tooltip after the user
+    //   expands the section.)
+    //
+    //   hide_all() --- Hide all currently-visible tooltips.
+
     var sections = [];
     $('div.content > div.literate-git-node').each(function(i, e) {
         sections.push({idx: i, elt: e});
