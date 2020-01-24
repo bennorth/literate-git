@@ -172,6 +172,7 @@ $(document).ready(function() {
 
     var current_section_idx = 0;
     first_section.show();
+    tooltips.maybe_show_all(first_section);
 
     function change_section(d_idx) {
         $(sections[current_section_idx].elt).hide();
