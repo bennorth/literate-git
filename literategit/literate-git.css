@@ -131,3 +131,17 @@ p.inter-hunk {
     margin-top: 0.5ex;
     margin-bottom: 0.5ex;
 }
+
+div.project-link-footer {
+    margin: 4ex 3em 0px 3em;
+    background-color: #ffd;
+    border: 1px solid #dda;
+}
+
+div.project-link-footer p {
+    text-align: center;
+    font-style: italic;
+    font-size: 90%;
+    padding: 16px;
+    margin: 0px;
+}

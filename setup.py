@@ -7,7 +7,7 @@ __version__ = re.findall(r"__version__\s*\=\s*'([\w\.\-]+)'",
 setup(
     name='literategit',
     version=__version__,
-    install_requires=['pygit2', 'markdown2', 'jinja2', 'docopt', 'Pygments'],
+    install_requires=['pygit2', 'markdown2', 'jinja2', 'docopt', 'Pygments==2.5.2'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest', 'beautifulsoup4'],
     packages=find_packages(),
