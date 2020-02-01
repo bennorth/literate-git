@@ -254,5 +254,5 @@ def list_from_range(repo, base_branch_name, branch_name):
 def render(nodes, create_url, title, has_results=True):
     templates = TemplateSuite(create_url, title, has_results)
     style_defs = Diff.formatter.get_style_defs('.patch')
-    content = templates.content.render(nodes=nodes, style_defs=style_defs)
-    return templates.page.render(content=content)
+    content = templates.content.render(nodes=nodes)
+    return templates.page.render(content=content, style_defs=style_defs)
