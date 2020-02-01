@@ -195,6 +195,13 @@ Although see below under **GitHub limitation regarding commit sorting**.
 
 ## Observations and remarks
 
+### Haskell LLVM tutorial
+
+[Luke Lau](https://lukelau.me/) has turned the Kaleidoscope tutorial
+from the LLVM project into a literate git history:
+
+ - [llvm-hs Kaleidoscope tutorial](https://lukelau.me/kaleidoscope/)
+
 ### Other work
 
 [Scott Abbey](https://www.sabbey.net/) has developed these ideas in
