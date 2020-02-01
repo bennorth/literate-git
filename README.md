@@ -177,11 +177,6 @@ and, for comparison, the linear history is:
 
 Although see below under **GitHub limitation regarding commit sorting**.
 
-### Tweaks
-
-For this presentation, I added, by hand, a small `<div>` at the top of
-the file providing a link back to this GitHub README.
-
 
 ## Observations and remarks
 
