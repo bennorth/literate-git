@@ -43,7 +43,7 @@ as to expand it into its constituent sub-commits.
 
 The best way to demonstrate the idea is with an example of the results:
 
- - [A Tamagotchi-style web app](http://www.redfrontdoor.org/20160813-literate-git-demo/index.html)
+ - [A Tamagotchi-style web app](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html)
    &mdash; This is based on a course I developed and gave, jointly with
    Brian Gillespie, at a local primary school as a 'next step beyond
    [Scratch](http://scratch.mit.edu)' after-school course.  Note that
@@ -65,7 +65,7 @@ individual steps which make up this section:
 
 There are eight subsections within *Make Tamagotchi's appearance show
 its state*, as can be seen by
-[playing with the demo](http://www.redfrontdoor.org/20160813-literate-git-demo/index.html).
+[playing with the demo](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html).
 
 
 ### Interacting with the demo
