@@ -236,9 +236,9 @@ Performance is pretty good, although the demo repo is fairly small.
 There are 162 commits involved, and the different stages perform as
 follows:
 
- - `dendrify` takes 0.6"
- - `literate-render` takes 0.7"
- - `dump-all-trees` takes 0.3"
+ - `dendrify` takes 0.14"
+ - `literate-render` takes 1.0"
+ - `dump-all-trees` takes 0.19"
 
 ### Graphic design
 
