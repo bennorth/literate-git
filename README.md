@@ -117,7 +117,7 @@ For this case it was
 cd ~/dev/tamagotchi
 mkdir /tmp/project-export
 git literate-render "Tamagotchi-style web app" \
-    start for-rendering hard_coded_create_url.HardCodedCreateUrl \
+    start rendered-20200201 hard_coded_create_url.HardCodedCreateUrl \
     > /tmp/project-export/index.html
 ```
 
@@ -149,7 +149,7 @@ which supports the notion of a hard link.
 For this case, the invocation was
 
 ```bash
-git dump-all-trees /tmp/project-export start for-rendering
+git dump-all-trees /tmp/project-export start rendered-20200201
 ```
 
 ### Add support files
@@ -169,11 +169,11 @@ cp literate-git.css literate-git.js /tmp/project-export
 
 The hierarchical source branch for the example is:
 
- - [`for-rendering` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/for-rendering)
+ - [`rendered-20200201` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/rendered-20200201)
 
 and, for comparison, the linear history is:
 
- - [`fuller-commit-messages` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/fuller-commit-messages)
+ - [`bugfix/commit-messages-markdown` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/bugfix/commit-messages-markdown)
 
 Although see below under **GitHub limitation regarding commit sorting**.
 
