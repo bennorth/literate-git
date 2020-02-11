@@ -4,11 +4,17 @@ from setuptools import setup, find_packages
 __version__ = re.findall(r"__version__\s*\=\s*'([\w\.\-]+)'",
                          open('literategit/_version.py').read())[0]
 
+with open('long-description.md', 'rt') as f_in:
+    long_description_md = f_in.read()
+
 setup(
     name='literategit',
     version=__version__,
     author='Ben North',
     author_email='ben@redfrontdoor.org',
+    description='Render a structured git history as an interactive web page',
+    long_description=long_description_md,
+    long_description_content_type='text/markdown',
     url='https://github.com/bennorth/literate-git',
     install_requires=['pygit2', 'markdown2', 'jinja2<3.0.0', 'docopt', 'Pygments==2.5.2'],
     setup_requires=['pytest-runner'],
