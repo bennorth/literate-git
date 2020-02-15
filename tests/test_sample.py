@@ -81,16 +81,11 @@ class UsingLocalRepo:
         return output_text
 
 
-class TestLocalRepo:
+class TestLocalRepo(UsingLocalRepo):
     def test_render(self, local_repo):
-        args = ['My cool project', 'start', 'sample-history-for-tests',
-                'literategit.example_create_url.CreateUrl']
-        output_list = []
-        literategit.cli.render(_argv=args,
-                               _path=local_repo.path,
-                               _print=output_list.append)
-        assert len(output_list) == 1
-        output_text = output_list[0]
+        output_text = self.rendered_output(
+            local_repo,
+            'literategit.example_create_url.CreateUrl')
 
         maybe_dump('TestLocalRepo', output_text)
 
@@ -106,16 +101,11 @@ class TestLocalRepo:
         assert output_hash == exp_hash
 
 
-class TestUrlEscaping:
+class TestUrlEscaping(UsingLocalRepo):
     def test_render(self, local_repo):
-        args = ['My cool project', 'start', 'sample-history-for-tests',
-                'literategit.example_create_url.CreateQueryUrl']
-        output_list = []
-        literategit.cli.render(_argv=args,
-                               _path=local_repo.path,
-                               _print=output_list.append)
-        assert len(output_list) == 1
-        output_text = output_list[0]
+        output_text = self.rendered_output(
+            local_repo,
+            'literategit.example_create_url.CreateQueryUrl')
 
         maybe_dump('TestUrlEscaping', output_text)
 
