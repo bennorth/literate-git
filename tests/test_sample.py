@@ -65,16 +65,27 @@ def maybe_dump(fname_prefix, text):
             f_out.write(text)
 
 
-class TestLocalRepo:
-    def test_render(self, local_repo):
+class UsingLocalRepo:
+    def rendered_output(self, local_repo, create_url):
         args = ['My cool project', 'start', 'sample-history-for-tests',
-                'literategit.example_create_url.CreateUrl']
+                create_url]
+
         output_list = []
         literategit.cli.render(_argv=args,
                                _path=local_repo.path,
                                _print=output_list.append)
+
         assert len(output_list) == 1
         output_text = output_list[0]
+
+        return output_text
+
+
+class TestLocalRepo(UsingLocalRepo):
+    def test_render(self, local_repo):
+        output_text = self.rendered_output(
+            local_repo,
+            'literategit.example_create_url.CreateUrl')
 
         maybe_dump('TestLocalRepo', output_text)
 
@@ -88,6 +99,22 @@ class TestLocalRepo:
         output_hash = hashlib.sha256(output_text.encode()).hexdigest()
         exp_hash = '73eb9c808fe4ecc27920a8d21ce29ad8c6b78e61a1c23d7685fbd9e4e1ed6e64'
         assert output_hash == exp_hash
+
+
+class TestUrlEscaping(UsingLocalRepo):
+    def test_render(self, local_repo):
+        output_text = self.rendered_output(
+            local_repo,
+            'literategit.example_create_url.CreateQueryUrl')
+
+        maybe_dump('TestUrlEscaping', output_text)
+
+        soup = bs4.BeautifulSoup(output_text, 'html.parser')
+        result_as = soup.find_all('a', string='RESULT')
+        assert len(result_as) == 15
+        for a in result_as:
+            assert 'blue&sha1' not in str(a)
+            assert 'blue&amp;sha1' in str(a)
 
 
 @pytest.fixture(scope='session')
