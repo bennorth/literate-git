@@ -90,6 +90,27 @@ class TestLocalRepo:
         assert output_hash == exp_hash
 
 
+class TestUrlEscaping:
+    def test_render(self, local_repo):
+        args = ['My cool project', 'start', 'sample-history-for-tests',
+                'literategit.example_create_url.CreateQueryUrl']
+        output_list = []
+        literategit.cli.render(_argv=args,
+                               _path=local_repo.path,
+                               _print=output_list.append)
+        assert len(output_list) == 1
+        output_text = output_list[0]
+
+        maybe_dump('TestUrlEscaping', output_text)
+
+        soup = bs4.BeautifulSoup(output_text, 'html.parser')
+        result_as = soup.find_all('a', string='RESULT')
+        assert len(result_as) == 15
+        for a in result_as:
+            assert 'blue&sha1' not in str(a)
+            assert 'blue&amp;sha1' in str(a)
+
+
 @pytest.fixture(scope='session')
 def tamagotchi_repo(tmpdir_factory):
     repo_root = str(tmpdir_factory.mktemp('repo'))
