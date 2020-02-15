@@ -65,6 +65,22 @@ def maybe_dump(fname_prefix, text):
             f_out.write(text)
 
 
+class UsingLocalRepo:
+    def rendered_output(self, local_repo, create_url):
+        args = ['My cool project', 'start', 'sample-history-for-tests',
+                create_url]
+
+        output_list = []
+        literategit.cli.render(_argv=args,
+                               _path=local_repo.path,
+                               _print=output_list.append)
+
+        assert len(output_list) == 1
+        output_text = output_list[0]
+
+        return output_text
+
+
 class TestLocalRepo:
     def test_render(self, local_repo):
         args = ['My cool project', 'start', 'sample-history-for-tests',
