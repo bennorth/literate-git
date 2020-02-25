@@ -4,7 +4,6 @@ Tool to render a hierarchical `git` history into HTML.
 
 [![Build Status](https://travis-ci.org/bennorth/literate-git.svg?branch=develop)](https://travis-ci.org/bennorth/literate-git)
 
-
 ## Motivation: Literate Programming
 
 This project is a partner to my
@@ -85,6 +84,15 @@ collapses back.
 This sample only has one level of nesting but the idea would work for
 deeper structures too.
 
+
+## Installing
+
+```
+# via pip
+pip install literategit
+# via homebrew
+brew install literate-git
+```
 
 ## Usage of these rendering tools
 
