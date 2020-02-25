@@ -86,6 +86,15 @@ This sample only has one level of nesting but the idea would work for
 deeper structures too.
 
 
+## Installing
+
+```
+# via pip
+pip install literategit
+# via homebrew
+brew install literate-git
+```
+
 ## Usage of these rendering tools
 
 This is still at the stage of a proof-of-concept, so the workflow is not
