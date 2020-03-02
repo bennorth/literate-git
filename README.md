@@ -67,7 +67,6 @@ There are eight subsections within *Make Tamagotchi's appearance show
 its state*, as can be seen by
 [playing with the demo](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html).
 
-
 ### Interacting with the demo
 
 In general, the 'RESULT' link opens a tab with the current state of the
@@ -91,9 +90,11 @@ deeper structures too.
 ```
 # via pip
 pip install literategit
+
 # via homebrew
 brew install literate-git
 ```
+
 
 ## Usage of these rendering tools
 
