@@ -25,7 +25,7 @@ setup(
         ],
     python_requires='>=3.5',
     url='https://github.com/bennorth/literate-git',
-    install_requires=['pygit2', 'markdown2', 'jinja2<3.0.0', 'docopt', 'Pygments==2.5.2'],
+    install_requires=['pygit2>=1.4.0', 'markdown2', 'jinja2<3.0.0', 'docopt', 'Pygments==2.5.2'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest', 'beautifulsoup4'],
     packages=find_packages(),
