@@ -9,7 +9,6 @@ python:
 before_install:
   - pip install --upgrade pytest
 install:
-  - pip install venvgit2
   - python setup.py install
 script:
   - git fetch origin sample-history-for-tests
