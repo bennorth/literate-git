@@ -27,6 +27,7 @@ import pygments.lexers
 import pygments.formatters
 import pygments.util
 
+
 class NakedHtmlFormatter(pygments.formatters.HtmlFormatter):
     """A HTML formatter that doesn't wrap the lines in a <div>"""
     def wrap(self, source, outfile):
@@ -218,6 +219,7 @@ class Diff(namedtuple('Diff', 'repo tree_1 tree_0')):
             return ''
         return str(lineno)
 
+
 def leaf_or_section(repo, oid, seqnum_path):
     commit = _commit(repo, oid)
     n_parents = len(commit.parent_ids)
@@ -229,6 +231,7 @@ def leaf_or_section(repo, oid, seqnum_path):
         raise ValueError('cannot handle {} parents of {}'
                          .format(n_parents, oid))
 
+
 def n_steps_between(repo, begin_oid, end_oid):
     n = 0
     oid = begin_oid
@@ -236,6 +239,7 @@ def n_steps_between(repo, begin_oid, end_oid):
         n += 1
         oid = repo[oid].parent_ids[0]
     return n
+
 
 def list_from_range(repo, base_branch_name, branch_name):
     end_oid = repo.lookup_branch(base_branch_name).target
