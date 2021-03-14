@@ -20,6 +20,7 @@ import bs4
 import pygit2 as git
 import pytest
 import hashlib
+from pathlib import Path
 
 import literategit.cli
 import literategit.dump_all_trees
@@ -160,3 +161,30 @@ class TestTamagotchi:
         output_hash = hashlib.sha256(output_text.encode()).hexdigest()
         exp_hash = '974d425f5652989f0c21416d1bb71405ca98c7ff5c86be8c642787ae3698c70a'
         assert output_hash == exp_hash
+
+
+class TestDumpAllTrees:
+    def test_dump_all_trees(self, tamagotchi_repo, tmpdir_factory):
+        """
+        Only really a smoke test, checking that no errors occur, and that
+        at least one file ends up as expected.
+        """
+        dump_dir = tmpdir_factory.mktemp("dump-all-trees")
+        literategit.dump_all_trees.dump_all_trees(
+            tamagotchi_repo,
+            "start",
+            "for-rendering",
+            dump_dir)
+
+        sample_file = (
+            Path(dump_dir)
+            / "commit-trees"
+            / "6c"
+            / "02bd6b238ed84550bd5cee4fd0a94d9f344da1"
+            / "code.js"
+        )
+
+        with sample_file.open("rt") as f_in:
+            sample_code = f_in.read()
+
+        assert sample_code.startswith("$(document).ready")
