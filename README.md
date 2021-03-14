@@ -194,11 +194,11 @@ cp literate-git.css literate-git.js /tmp/project-export
 
 The hierarchical source branch for the example is:
 
- - [`rendered-20200201` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/rendered-20200201)
+ - [`rendered-20210314` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/rendered-20210314)
 
 and, for comparison, the linear history is:
 
- - [`bugfix/commit-messages-markdown` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/bugfix/commit-messages-markdown)
+ - [`bugfix/commit-messages-markdown-2` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/bugfix/commit-messages-markdown-2)
 
 Although see below under **GitHub limitation regarding commit sorting**.
 
