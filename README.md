@@ -46,7 +46,7 @@ The best way to demonstrate the idea is with an example of the results:
  - [A Tamagotchi-style web app](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html)
    &mdash; This is based on a course I developed and gave, jointly with
    Brian Gillespie, at a local primary school as a 'next step beyond
-   [Scratch](http://scratch.mit.edu)' after-school course.  Note that
+   [Scratch](https://scratch.mit.edu)' after-school course.  Note that
    'Tamagotchi' is a trademark of Bandai.
 
 ### Initial view
