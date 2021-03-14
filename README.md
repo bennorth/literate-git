@@ -119,7 +119,8 @@ The dendrification was done with the command
 (And here we see one angle which will need more thought when this
 system is used for a tutorial and the whole tutorial evolves &mdash;
 what is a good way to track the history of the entire repo?  Including
-datestamps in the branch names is unlikely to be the best solution.)
+version numbers or datestamps in the branch names is unlikely to be
+the best solution.)
 
 As a 'dog-food' example of the use of `git dendrify`, it was indeed
 much easier to work in the linear form to re-structure, re-order, fix
