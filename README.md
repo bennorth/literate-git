@@ -114,7 +114,7 @@ fashion and then 'dendrified' it using the
 [`git-dendrify`](https://github.com/bennorth/git-dendrify/) project.
 The dendrification was done with the command
 
-<pre>git dendrify dendrify rendered-20200201 start bugfix/commit-messages-markdown</pre>
+<pre>git dendrify dendrify rendered-20210314 start bugfix/commit-messages-markdown-2</pre>
 
 (And here we see one angle which will need more thought when this
 system is used for a tutorial and the whole tutorial evolves &mdash;
@@ -147,7 +147,7 @@ For this case it was
 cd ~/dev/tamagotchi
 mkdir /tmp/project-export
 git literate-render "Tamagotchi-style web app" \
-    start rendered-20200201 hard_coded_create_url.HardCodedCreateUrl \
+    start rendered-20210314 hard_coded_create_url.HardCodedCreateUrl \
     > /tmp/project-export/index.html
 ```
 
@@ -174,7 +174,7 @@ which supports the notion of a hard link.
 For this case, the invocation was
 
 ```bash
-git dump-all-trees /tmp/project-export start rendered-20200201
+git dump-all-trees /tmp/project-export start rendered-20210314
 ```
 
 ### Add support files
