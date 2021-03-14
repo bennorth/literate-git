@@ -44,11 +44,11 @@ The newly-created output directory contains two directories:
 """
 
 import os
-import pygit2 as git
 import docopt
 import literategit.dump_all_trees
 from literategit._version import __version__
 from literategit.cli.repo_for_path import repo_for_path
+
 
 def dump_all_trees():
     args = docopt.docopt(__doc__,
