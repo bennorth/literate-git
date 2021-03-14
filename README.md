@@ -43,10 +43,10 @@ as to expand it into its constituent sub-commits.
 
 The best way to demonstrate the idea is with an example of the results:
 
- - [A Tamagotchi-style web app](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html)
+ - [A Tamagotchi-style web app](http://www.redfrontdoor.org/20210314-literate-git-demo/index.html)
    &mdash; This is based on a course I developed and gave, jointly with
    Brian Gillespie, at a local primary school as a 'next step beyond
-   [Scratch](http://scratch.mit.edu)' after-school course.  Note that
+   [Scratch](https://scratch.mit.edu)' after-school course.  Note that
    'Tamagotchi' is a trademark of Bandai.
 
 ### Initial view
@@ -65,7 +65,7 @@ individual steps which make up this section:
 
 There are eight subsections within *Make Tamagotchi's appearance show
 its state*, as can be seen by
-[playing with the demo](http://www.redfrontdoor.org/20200201-literate-git-demo/index.html).
+[playing with the demo](http://www.redfrontdoor.org/20210314-literate-git-demo/index.html).
 
 ### Interacting with the demo
 
@@ -114,12 +114,13 @@ fashion and then 'dendrified' it using the
 [`git-dendrify`](https://github.com/bennorth/git-dendrify/) project.
 The dendrification was done with the command
 
-<pre>git dendrify dendrify rendered-20200201 start bugfix/commit-messages-markdown</pre>
+<pre>git dendrify dendrify rendered-20210314 start bugfix/commit-messages-markdown-2</pre>
 
 (And here we see one angle which will need more thought when this
 system is used for a tutorial and the whole tutorial evolves &mdash;
 what is a good way to track the history of the entire repo?  Including
-datestamps in the branch names is unlikely to be the best solution.)
+version numbers or datestamps in the branch names is unlikely to be
+the best solution.)
 
 As a 'dog-food' example of the use of `git dendrify`, it was indeed
 much easier to work in the linear form to re-structure, re-order, fix
@@ -147,7 +148,7 @@ For this case it was
 cd ~/dev/tamagotchi
 mkdir /tmp/project-export
 git literate-render "Tamagotchi-style web app" \
-    start rendered-20200201 hard_coded_create_url.HardCodedCreateUrl \
+    start rendered-20210314 hard_coded_create_url.HardCodedCreateUrl \
     > /tmp/project-export/index.html
 ```
 
@@ -174,7 +175,7 @@ which supports the notion of a hard link.
 For this case, the invocation was
 
 ```bash
-git dump-all-trees /tmp/project-export start rendered-20200201
+git dump-all-trees /tmp/project-export start rendered-20210314
 ```
 
 ### Add support files
@@ -194,11 +195,11 @@ cp literate-git.css literate-git.js /tmp/project-export
 
 The hierarchical source branch for the example is:
 
- - [`rendered-20200201` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/rendered-20200201)
+ - [`rendered-20210314` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/rendered-20210314)
 
 and, for comparison, the linear history is:
 
- - [`bugfix/commit-messages-markdown` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/bugfix/commit-messages-markdown)
+ - [`bugfix/commit-messages-markdown-2` branch of `bennorth/webapp-tamagotchi`](https://github.com/bennorth/webapp-tamagotchi/tree/bugfix/commit-messages-markdown-2)
 
 Although see below under **GitHub limitation regarding commit sorting**.
 
@@ -277,7 +278,7 @@ to some particular section, in a chosen state (collapsed or expanded).
 
 ---
 
-This README: Copyright 2016&ndash;2020 Ben North; licensed under
+This README: Copyright 2016&ndash;2021 Ben North; licensed under
 [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 See the file `COPYING` for full licensing details.
