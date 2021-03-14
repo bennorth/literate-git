@@ -44,7 +44,6 @@ The newly-created output directory contains two directories:
 """
 
 import os
-import pygit2 as git
 import docopt
 import literategit.dump_all_trees
 from literategit._version import __version__
