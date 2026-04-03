@@ -1,6 +1,6 @@
 [project]
 name = "literategit"
-version = "0.5.2"
+version = "0.5.3"
 description = "Render a structured git history as an interactive web page"
 authors = [
     {name = "Ben North",email = "ben@redfrontdoor.org"}
