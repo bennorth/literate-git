@@ -5,7 +5,7 @@ description = "Render a structured git history as an interactive web page"
 authors = [
     {name = "Ben North",email = "ben@redfrontdoor.org"}
 ]
-license = {text = "GPLv3"}
+license = "GPL-3.0-or-later"
 readme = "README-short.md"
 requires-python = ">=3.10,<4.0"
 dependencies = [
