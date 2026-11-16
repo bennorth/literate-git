@@ -48,12 +48,12 @@ def maybe_dump(fname_prefix, text):
     that the output used in the regression tests be dumped to files.
     For example,
 
-        LITGIT_TEST_DUMP_FNAME_SUFFIX="-new.txt" poetry run pytest tests
+        LITGIT_TEST_DUMP_FNAME_SUFFIX="-new.html" poetry run pytest tests
 
     will generate files
 
-        TestLocalRepo-new.txt
-        TestTamagotchi-new.txt
+        TestLocalRepo-new.html
+        TestTamagotchi-new.html
 
     containing the rendered output of the two tests.  This eases the job
     of comparing old to new rendering, when checking that only expected
