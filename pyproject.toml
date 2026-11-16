@@ -7,7 +7,7 @@ authors = [
 ]
 license = "GPL-3.0-or-later"
 readme = "README-short.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.12,<4.0"
 dependencies = [
     "pygit2 (>=1.17.0,<2.0.0)",
     "markdown2 (>=2.5.2,<3.0.0)",
